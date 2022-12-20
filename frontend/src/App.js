@@ -1,25 +1,41 @@
-import logo from './logo.svg';
-import './App.css';
+import React from "react"
+import { BrowserRouter, Routes, Route, Link} from "react-router-dom"
+import "bootstrap/dist/css/bootstrap.min.css"
+import ExercisesList from './components/exercises-list'
 
-function App() {
+// Pages ----------------------
+
+const Login = () => {
+  return <h2>login</h2>;
+};
+
+// Routing --------------------
+
+const App = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <nav className="navbar navbar-expand">
+        <div className="container">
+          <Link to='/'  className = "navbar-brand"> tsuyo </Link>
+
+          <ul className="navbar-nav">
+            <li className="nav-item">
+              <Link to="/" class="nav-link">Exercises</Link>
+            </li>
+            <li className="nav-item">
+              <Link to="/login" class="nav-link">Login</Link>
+            </li>
+          </ul>
+        </div>
+      </nav>
+          
+      <Routes>
+        <Route path="/" element={<ExercisesList />} />
+        <Route path="/login" element={<Login />} />
+      </Routes>
     </div>
+    
   );
-}
+};
 
 export default App;
