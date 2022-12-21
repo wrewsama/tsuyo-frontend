@@ -5,10 +5,7 @@ import ExerciseListItem from './exercise-list-item'
 
 const ExercisesList = () => {
     const [exercises, setExercises] = useState([])
-
-    useEffect(() => {
-        retrieveExercises()
-    }, [])
+    const [query, setQuery] = useState("")
 
     const retrieveExercises = () => {
         DataService.getAllExercises()
@@ -20,6 +17,17 @@ const ExercisesList = () => {
                 console.error(e)
             })
     }
+
+    const handleKeyDown = event => {
+        if (event.key === "Enter") {
+            console.log(query)
+        }
+    }
+
+    useEffect(() => {
+        retrieveExercises()
+    }, [])
+    
     
     return (
         <div className="container">
@@ -29,8 +37,14 @@ const ExercisesList = () => {
                 </h3>
             </div>
 
-            <div class="form-outline">
-                <input type="search" id="form1" class="form-control" placeholder="Search" aria-label="Search" />
+            <div className="form-outline">
+                <input type="search"
+                       id="form1"
+                       className="form-control"
+                       placeholder="Search"
+                       aria-label="Search"
+                       onChange={event => setQuery(event.target.value)}
+                       onKeyDown={handleKeyDown}/>
             </div>
 
             <div className = "box">
