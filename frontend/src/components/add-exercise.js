@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import "bootstrap/dist/css/bootstrap.min.css" 
 
 export default function AddExercise() {
 
@@ -30,21 +31,25 @@ export default function AddExercise() {
                     <div className='modal-header'>Add a new exercise</div>
                     <div className='modal-body'>
                         <form>
-                            <label htmlFor="exercise-name" className="form-label">Name</label>
-                            <input type="text"
-                                   id="exercise-name"
-                                   className="form-control"
-                                   value={newName}
-                                   onChange={handleNameChange}>    
-                            </input>
+                            <div className="form-group mb-3">
+                                <label htmlFor="exercise-name" className="form-label">Name</label>
+                                <input type="text"
+                                    id="exercise-name"
+                                    className="form-control"
+                                    value={newName}
+                                    onChange={handleNameChange}>    
+                                </input>
+                            </div>
 
-                            <label htmlFor="exercise-desc" className="form-label">Description</label>
-                            <input type="text"
-                                   id="exercise-desc"
-                                   className="form-control"
-                                   value={newDesc}
-                                   onChange={handleDescChange}>    
-                            </input>
+                            <div className="form-group">
+                                <label htmlFor="exercise-desc" className="form-label">Description</label>
+                                <input type="text"
+                                    id="exercise-desc"
+                                    className="form-control"
+                                    value={newDesc}
+                                    onChange={handleDescChange}>    
+                                </input>
+                            </div>
                         </form>
                     </div>
                     <div className='modal-footer'>
