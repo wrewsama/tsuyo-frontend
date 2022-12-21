@@ -1,5 +1,5 @@
 import React from "react"
-import { BrowserRouter, Routes, Route, Link} from "react-router-dom"
+import { Routes, Route, Link} from "react-router-dom"
 import "bootstrap/dist/css/bootstrap.min.css"
 import ExercisesList from './components/exercises-list'
 
@@ -20,10 +20,10 @@ const App = () => {
 
           <ul className="navbar-nav">
             <li className="nav-item">
-              <Link to="/" class="nav-link">Exercises</Link>
+              <Link to="/" className="nav-link">Exercises</Link>
             </li>
             <li className="nav-item">
-              <Link to="/login" class="nav-link">Login</Link>
+              <Link to="/login" className="nav-link">Login</Link>
             </li>
           </ul>
         </div>
