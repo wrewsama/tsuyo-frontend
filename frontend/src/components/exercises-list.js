@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react'
 import DataService from '../services/exercise'
-import "bootstrap/dist/css/bootstrap.min.css" 
+import "bootstrap/dist/css/bootstrap.min.css"
+import 'bootstrap'
 import ExerciseListItem from './exercise-list-item'
+import AddExercise from './add-exercise'
 
 const ExercisesList = () => {
     const [exercises, setExercises] = useState([])
@@ -76,6 +78,9 @@ const ExercisesList = () => {
                 </div>
             </div>
 
+            
+            <button className='btn btn-primary' data-bs-toggle="modal" data-bs-target="#add-exercise">+</button>
+            <AddExercise />
         </div>
     )
 }
