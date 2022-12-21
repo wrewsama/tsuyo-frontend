@@ -16,7 +16,7 @@ const App = () => {
     <div>
       <nav className="navbar navbar-expand">
         <div className="container">
-          <Link to='/'  className = "navbar-brand"> tsuyo </Link>
+          <Link to='/' className = "navbar-brand"> tsuyo </Link>
 
           <ul className="navbar-nav">
             <li className="nav-item">

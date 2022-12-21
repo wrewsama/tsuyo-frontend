@@ -18,9 +18,30 @@ const ExercisesList = () => {
             })
     }
 
+    const retrieveFilteredExercises = searchQuery => {
+        DataService.findExercise(searchQuery)
+            .then(res => {
+                console.log(res.data)
+                setExercises(res.data.exercises)
+            })
+            .catch(e => {
+                console.error(e)
+            })
+    }
+
+    const handleQueryChange = event => {
+        setQuery(event.target.value)
+        if (event.target.value === '') {
+            retrieveExercises()
+        }
+        
+    }
+
     const handleKeyDown = event => {
         if (event.key === "Enter") {
-            console.log(query)
+            retrieveFilteredExercises(query)
+        } else if (event.key === "Escape") {
+            setQuery("")
         }
     }
 
@@ -43,7 +64,7 @@ const ExercisesList = () => {
                        className="form-control"
                        placeholder="Search"
                        aria-label="Search"
-                       onChange={event => setQuery(event.target.value)}
+                       onChange={handleQueryChange}
                        onKeyDown={handleKeyDown}/>
             </div>
 
