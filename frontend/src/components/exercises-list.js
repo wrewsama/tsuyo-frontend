@@ -24,15 +24,19 @@ const ExercisesList = () => {
     return (
         <div className="container">
             <div className = "row text-center">
-                <h3>    
+                <h3>
                 Exercises
                 </h3>
+            </div>
+
+            <div class="form-outline">
+                <input type="search" id="form1" class="form-control" placeholder="Search" aria-label="Search" />
             </div>
 
             <div className = "box">
             {exercises.map(exercise => {
                 return <ExerciseListItem key={exercise._id} exercise={exercise} />
-            })} 
+            })}
             </div>
 
         </div>
