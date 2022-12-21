@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import DataService from '../services/exercise'
 import "bootstrap/dist/css/bootstrap.min.css" 
 
 export default function AddExercise() {
@@ -16,8 +17,18 @@ export default function AddExercise() {
     }
 
     const onAddButtonClick = event => {
-        console.log(newName)
-        console.log(newDesc)
+        const request = {
+            name: newName,
+            desc: newDesc
+        }
+        // send the http request to add the exercise to the database
+        DataService.addExercise(request)
+            .then(res => {
+                console.log(res.data)
+            })
+            .catch(e => {
+                console.error(e)
+            })
 
         // Clear inputs
         setNewName('')
@@ -30,6 +41,7 @@ export default function AddExercise() {
                 <div className='modal-content'>
                     <div className='modal-header'>Add a new exercise</div>
                     <div className='modal-body'>
+                        
                         <form>
                             <div className="form-group mb-3">
                                 <label htmlFor="exercise-name" className="form-label">Name</label>
@@ -53,7 +65,7 @@ export default function AddExercise() {
                         </form>
                     </div>
                     <div className='modal-footer'>
-                        <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                        <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                         <button type="button" className="btn btn-primary" onClick={onAddButtonClick}>Add</button>
                     </div>
                 </div>
