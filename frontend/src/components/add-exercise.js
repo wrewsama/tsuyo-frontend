@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import DataService from '../services/exercise'
 import "bootstrap/dist/css/bootstrap.min.css" 
 
-export default function AddExercise() {
+export default function AddExercise({ updateListFunction }) {
 
     const [newName, setNewName] = useState('')
     const [newDesc, setNewDesc] = useState('')
@@ -65,7 +65,7 @@ export default function AddExercise() {
                         </form>
                     </div>
                     <div className='modal-footer'>
-                        <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="button" className="btn btn-secondary" data-bs-dismiss="modal" onClick={updateListFunction}>Close</button>
                         <button type="button" className="btn btn-primary" onClick={onAddButtonClick}>Add</button>
                     </div>
                 </div>

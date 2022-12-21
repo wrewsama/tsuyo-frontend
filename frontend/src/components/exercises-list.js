@@ -50,24 +50,35 @@ const ExercisesList = () => {
     useEffect(() => {
         retrieveExercises()
     }, [])
-    
-    
+
     return (
         <div className="container">
-            <div className = "row text-center">
-                <h3>
-                Exercises
-                </h3>
+            <div className = "row">
+                <div className="col-11">
+                    <h3>
+                    Exercises
+                    </h3>
+                </div>
+                <div className="col-1">
+                    <button className='btn btn-primary'
+                            data-bs-toggle="modal"
+                            data-bs-target="#add-exercise">
+                        +
+                    </button>
+                    <AddExercise updateListFunction={retrieveExercises}/>
+                </div>
             </div>
 
-            <div className="form-outline">
-                <input type="search"
-                       id="form1"
-                       className="form-control"
-                       placeholder="Search"
-                       aria-label="Search"
-                       onChange={handleQueryChange}
-                       onKeyDown={handleKeyDown}/>
+            <div className="row">
+                <div className="form-outline">
+                    <input type="search"
+                        id="form1"
+                        className="form-control"
+                        placeholder="Search"
+                        aria-label="Search"
+                        onChange={handleQueryChange}
+                        onKeyDown={handleKeyDown}/>
+                </div>
             </div>
 
             <div className="row">
@@ -78,9 +89,6 @@ const ExercisesList = () => {
                 </div>
             </div>
 
-            
-            <button className='btn btn-primary' data-bs-toggle="modal" data-bs-target="#add-exercise">+</button>
-            <AddExercise />
         </div>
     )
 }
