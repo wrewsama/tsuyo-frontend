@@ -6,7 +6,7 @@ export default function AddExercise({ updateListFunction }) {
 
     const [newName, setNewName] = useState('')
     const [newDesc, setNewDesc] = useState('')
-
+    const [submitted, setSubmitted] = useState(false)
 
     const handleNameChange = event => {
         setNewName(event.target.value)
@@ -33,6 +33,13 @@ export default function AddExercise({ updateListFunction }) {
         // Clear inputs
         setNewName('')
         setNewDesc('')
+
+        setSubmitted(true)
+    }
+
+    const onCloseButtonClick = event => {
+        updateListFunction()
+        setSubmitted(false)
     }
 
     return (
@@ -63,9 +70,22 @@ export default function AddExercise({ updateListFunction }) {
                                 </input>
                             </div>
                         </form>
+
+                        <div>
+                            {submitted ? (
+                                <div className="mt-3">Exercise Added!</div>
+                            ) : (
+                                <div></div>
+                            )}
+                        </div>
                     </div>
                     <div className='modal-footer'>
-                        <button type="button" className="btn btn-secondary" data-bs-dismiss="modal" onClick={updateListFunction}>Close</button>
+                        <button type="button"
+                                className="btn btn-secondary"
+                                data-bs-dismiss="modal"
+                                onClick={onCloseButtonClick}>
+                            Close
+                        </button>
                         <button type="button" className="btn btn-primary" onClick={onAddButtonClick}>Add</button>
                     </div>
                 </div>
