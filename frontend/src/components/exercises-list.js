@@ -68,10 +68,12 @@ const ExercisesList = () => {
                        onKeyDown={handleKeyDown}/>
             </div>
 
-            <div className = "box">
-            {exercises.map(exercise => {
-                return <ExerciseListItem key={exercise._id} exercise={exercise} />
-            })}
+            <div className="row">
+                <div className = "btn-group-vertical" >
+                {exercises.map(exercise => {
+                    return <ExerciseListItem key={exercise._id} exercise={exercise} />
+                })}
+                </div>
             </div>
 
         </div>
