@@ -28,7 +28,7 @@ export default function ExerciseListItem({ exercise, updateListFunction }) {
                         data-bs-toggle="dropdown"
                         aria-expanded="false"></button>
                 <ul className="dropdown-menu">
-                    <li><button className="dropdown-item" data-bs-toggle="modal" data-bs-target="#edit">Edit</button></li>
+                    <li><button className="dropdown-item" data-bs-toggle="modal" data-bs-target={`#edit${exercise._id}`}>Edit</button></li>
                     <li><hr className="dropdown-divider"></hr></li>
                     <li><button className="dropdown-item" onClick={onDeleteClick}>Delete</button></li>
                 </ul>

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import "bootstrap"
 import "bootstrap/dist/css/bootstrap.min.css"
 import DataService from '../services/exercise'
@@ -21,6 +21,7 @@ export default function EditExercise({ exercise, updateListFunction }) {
     }
 
     const onSaveButtonClick = event => {
+        console.log(exercise)
         const data = {
             id: exercise._id,
             name: newName,
@@ -38,7 +39,7 @@ export default function EditExercise({ exercise, updateListFunction }) {
     }
 
     return (
-        <div className="modal fade" id="edit">
+        <div className="modal fade" id={`edit${exercise._id}`}>
             <div className="modal-dialog">
                 <div className="modal-content">
                     <div className="modal-header">Edit Exercise</div>
