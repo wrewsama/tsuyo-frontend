@@ -53,13 +53,13 @@ const ExercisesList = () => {
     return (
         <div className="container">
             <div className = "row">
-                <div className="col-11">
+                <div className="col">
                     <h3>
                     Exercises
                     </h3>
                 </div>
-                <div className="col-1">
-                    <button className='btn btn-primary'
+                <div className="col">
+                    <button className='btn btn-primary float-end'
                             data-bs-toggle="modal"
                             data-bs-target="#add-exercise">
                         +
