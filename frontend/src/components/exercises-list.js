@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import DataService from '../services/exercise'
 import "bootstrap/dist/css/bootstrap.min.css"
-import 'bootstrap'
 import ExerciseListItem from './exercise-list-item'
 import AddExercise from './add-exercise'
 
