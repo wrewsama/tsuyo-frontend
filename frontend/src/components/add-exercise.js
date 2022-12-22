@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import DataService from '../services/exercise'
+import "bootstrap"
 import "bootstrap/dist/css/bootstrap.min.css" 
 
 export default function AddExercise({ updateListFunction }) {
@@ -73,7 +74,9 @@ export default function AddExercise({ updateListFunction }) {
 
                         <div>
                             {submitted ? (
-                                <div className="mt-3">Exercise Added!</div>
+                                <div className="alert alert-success mt-3" role="alert">
+                                    Exercise Added!
+                                </div>
                             ) : (
                                 <div></div>
                             )}
