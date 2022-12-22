@@ -3,6 +3,7 @@ import { Routes, Route, Link} from "react-router-dom"
 import "bootstrap/dist/css/bootstrap.min.css"
 import ExercisesList from './components/exercises-list'
 import Exercise from "./components/exercise";
+import New from "./components/new";
 
 // Temporary page
 
@@ -10,9 +11,6 @@ const Login = () => {
   return <h2>login</h2>;
 };
 
-const New = () => {
-  return <h1>new</h1>
-}
 const History = () => {
   return <h1>history</h1>
 }
@@ -41,6 +39,7 @@ const App = () => {
       <Routes>
         <Route path="/" element={<ExercisesList />} />
         <Route path="/:id" element={<Exercise />}>
+      {/* note to self: use contexts to send exercise data to the components */}
           <Route index element={<New />} />
           <Route path="history" element={<History />} />
           <Route path="graph" element={<Graph />} />

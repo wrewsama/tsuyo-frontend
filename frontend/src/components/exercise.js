@@ -34,7 +34,7 @@ export default function Exercise() {
                 </li>
             </ul>
 
-            <Outlet />
+            <Outlet context={exercise}/>
         </div>
         
     )
