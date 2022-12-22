@@ -18,6 +18,10 @@ export default class DataService {
         return http.get(`/exercises?name=${query}`)
     }
 
+    static findExerciseById(id) {
+        return http.get(`/exercises/${id}`)
+    }
+
     static addExercise(data) {
         return http.post("/exercises", data, axiosConfig)
     }
