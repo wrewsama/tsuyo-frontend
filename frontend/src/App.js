@@ -10,6 +10,15 @@ const Login = () => {
   return <h2>login</h2>;
 };
 
+const New = () => {
+  return <h1>new</h1>
+}
+const History = () => {
+  return <h1>history</h1>
+}
+const Graph = () => {
+  return <h1>graph</h1>
+}
 
 const App = () => {
   return (
@@ -31,7 +40,11 @@ const App = () => {
           
       <Routes>
         <Route path="/" element={<ExercisesList />} />
-        <Route path="/:id" element={<Exercise />} />
+        <Route path="/:id" element={<Exercise />}>
+          <Route index element={<New />} />
+          <Route path="history" element={<History />} />
+          <Route path="graph" element={<Graph />} />
+        </Route>
         <Route path="/login" element={<Login />} />
       </Routes>
     </div>
