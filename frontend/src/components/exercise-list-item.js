@@ -3,6 +3,8 @@ import 'bootstrap'
 import "bootstrap/dist/css/bootstrap.min.css"
 import DataService from '../services/exercise'
 import EditExercise from './edit-exercise'
+import { Link } from 'react-router-dom'
+
 
 export default function ExerciseListItem({ exercise, updateListFunction }) {
 
@@ -18,9 +20,11 @@ export default function ExerciseListItem({ exercise, updateListFunction }) {
 
     return (
         <div className="btn-group">
-            <button className='btn btn-light btn-block text-start'>
-                {exercise.name}
-            </button>
+            <Link to={`/${exercise._id}`} style={{width: '100%'}}>
+                <button className='btn btn-light btn-block text-start' style={{width: '100%'}}>
+                    {exercise.name}
+                </button>
+            </Link>
 
             <div className="btn-group">
                 <button type="button"

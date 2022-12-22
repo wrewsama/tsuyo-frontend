@@ -82,12 +82,12 @@ const ExercisesList = () => {
             </div>
 
             <div className="row">
-                <div className = "btn-group-vertical" >
-                {exercises.map(exercise => {
-                    return <ExerciseListItem key={exercise._id}
-                                             exercise={exercise}
-                                             updateListFunction={retrieveExercises}/>
-                })}
+                <div className = "btn-group-vertical" >    
+                    {exercises.map(exercise => {
+                        return <ExerciseListItem key={exercise._id}
+                                                exercise={exercise}
+                                                updateListFunction={retrieveExercises}/>
+                    })}
                 </div>
             </div>
         </div>

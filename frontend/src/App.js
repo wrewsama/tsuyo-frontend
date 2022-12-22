@@ -2,6 +2,7 @@ import React from "react"
 import { Routes, Route, Link} from "react-router-dom"
 import "bootstrap/dist/css/bootstrap.min.css"
 import ExercisesList from './components/exercises-list'
+import Exercise from "./components/exercise";
 
 // Temporary page
 
@@ -30,6 +31,7 @@ const App = () => {
           
       <Routes>
         <Route path="/" element={<ExercisesList />} />
+        <Route path="/:id" element={<Exercise />} />
         <Route path="/login" element={<Login />} />
       </Routes>
     </div>
