@@ -4,8 +4,8 @@ import { useOutletContext } from 'react-router-dom'
 export default function New() {
     const exercise = useOutletContext()
     const [newSets, setNewSets] = useState([]) // {weight, reps}
-    const [weight, setWeight] = useState(0)
-    const [reps, setReps] = useState(0)
+    const [weight, setWeight] = useState('')
+    const [reps, setReps] = useState('')
 
     const handleWeightChange = event => {
         setWeight(event.target.value)
@@ -16,7 +16,13 @@ export default function New() {
     }
 
     const onAddButtonClick = event => {
-        setNewSets([...newSets, { weight: weight, reps: reps }])
+        setNewSets([...newSets, { weight: weight ? weight : 0, reps: reps ? reps : 0}])
+    }
+
+    const onClearButtonClick = event => {
+        setNewSets([])
+        setWeight('')
+        setReps('')
     }
 
     return (
@@ -32,15 +38,23 @@ export default function New() {
                 }
             </ul>
             <div className="input-group mb-3">
-                <input type="number" class="form-control" placeholder="weight" onChange={handleWeightChange} />
+                <input type="number"
+                       class="form-control"
+                       placeholder="weight"
+                       onChange={handleWeightChange}
+                       value={weight} />
                 <div class="input-group-text">kg</div>
-                <input type="number" class="form-control" placeholder="reps performed" onChange={handleRepChange} />
+                <input type="number"
+                       class="form-control"
+                       placeholder="reps performed"
+                       onChange={handleRepChange}
+                       value={reps} />
                 <div class="input-group-text">reps</div>
                 <button class="btn btn-outline-primary" onClick={onAddButtonClick}>+</button>
             </div>
             
             <button class="btn btn-primary btn-sm float-end m-1">Save</button>
-            <button class="btn btn-secondary btn-sm float-end m-1">Cancel</button>
+            <button class="btn btn-secondary btn-sm float-end m-1" onClick={onClearButtonClick}>Clear</button>
             
         </div>
     )
