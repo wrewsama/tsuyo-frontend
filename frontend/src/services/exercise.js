@@ -33,4 +33,12 @@ export default class DataService {
     static deleteExercise(id) {
         return http.delete(`/exercises?id=${id}`)
     }
+
+    static addSet(data) {
+        return http.post("/sets", data, axiosConfig)
+    }
+
+    static addWorkout(data) {
+        return http.post("/workouts", data, axiosConfig)
+    }
 }

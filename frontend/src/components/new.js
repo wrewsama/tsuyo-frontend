@@ -30,7 +30,7 @@ export default function New() {
             <div className="row px-2">
                 <h5>Sets</h5>
             </div>
-            <ul class="list-group mb-3">
+            <ul class="list-group list-group-numbered mb-3">
                 {
                     newSets.map(newSet => {
                         return <li class="list-group-item">{newSet.weight} {newSet.reps}</li>
