@@ -3,13 +3,12 @@ import { Routes, Route, Link} from "react-router-dom"
 import "bootstrap/dist/css/bootstrap.min.css"
 import ExercisesList from './components/exercises-list'
 
-// Pages ----------------------
+// Temporary page
 
 const Login = () => {
   return <h2>login</h2>;
 };
 
-// Routing --------------------
 
 const App = () => {
   return (
