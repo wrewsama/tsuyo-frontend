@@ -1,7 +1,19 @@
 import React from 'react'
 import "bootstrap/dist/css/bootstrap.min.css" 
+import DataService from '../services/exercise'
 
-export default function ExerciseListItem({ exercise }) {
+export default function ExerciseListItem({ exercise, updateListFunction }) {
+
+    const onDeleteClick = event => {
+        DataService.deleteExercise(exercise._id)
+            .then(res => {
+                updateListFunction()
+            })
+            .catch(e => {
+                console.error(e)
+            })
+    }
+
     return (
         <div className="btn-group">
             <button className='btn btn-light btn-block text-start'>
@@ -16,7 +28,7 @@ export default function ExerciseListItem({ exercise }) {
                 <ul className="dropdown-menu">
                     <li><button className="dropdown-item">Edit</button></li>
                     <li><hr className="dropdown-divider"></hr></li>
-                    <li><button className="dropdown-item">Delete</button></li>
+                    <li><button className="dropdown-item" onClick={onDeleteClick}>Delete</button></li>
                 </ul>
                 
             </div>

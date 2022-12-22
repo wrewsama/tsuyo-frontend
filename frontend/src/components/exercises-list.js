@@ -83,7 +83,9 @@ const ExercisesList = () => {
             <div className="row">
                 <div className = "btn-group-vertical" >
                 {exercises.map(exercise => {
-                    return <ExerciseListItem key={exercise._id} exercise={exercise} />
+                    return <ExerciseListItem key={exercise._id}
+                                             exercise={exercise}
+                                             updateListFunction={retrieveExercises}/>
                 })}
                 </div>
             </div>
