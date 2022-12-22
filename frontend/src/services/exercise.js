@@ -19,7 +19,14 @@ export default class DataService {
     }
 
     static addExercise(data) {
-        console.log(data)
         return http.post("/exercises", data, axiosConfig)
+    }
+
+    static updateExercise(data) {
+        return http.put("/exercises", data, axiosConfig)
+    }
+
+    static deleteExercise(id) {
+        return http.delete(`/exercises?id=${id}`)
     }
 }
