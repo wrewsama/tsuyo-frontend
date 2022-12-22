@@ -25,7 +25,7 @@ export default function AddExercise({ updateListFunction }) {
         // send the http request to add the exercise to the database
         DataService.addExercise(request)
             .then(res => {
-                console.log(res.data)
+                updateListFunction()
             })
             .catch(e => {
                 console.error(e)
@@ -39,7 +39,6 @@ export default function AddExercise({ updateListFunction }) {
     }
 
     const onCloseButtonClick = event => {
-        updateListFunction()
         setSubmitted(false)
     }
 
