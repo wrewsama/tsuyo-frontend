@@ -5,6 +5,14 @@ export default function EditNewSet({ idx, initWeight, initReps }) {
     const [weight, setWeight] = useState(initWeight)
     const [reps, setReps] = useState(initReps)
 
+    const handleWeightChange = event => {
+        setWeight(event.target.value)
+    }
+
+    const handleRepChange = event => {
+        setReps(event.target.value)
+    }
+
     const onCancelButtonClick = event => {
 
     }
@@ -25,7 +33,10 @@ export default function EditNewSet({ idx, initWeight, initReps }) {
                             <label htmlFor='weight' className='form-label'>Weight</label>
                             <div className="input-group mb-3" id="weight">
                                 <input type="number"
-                                       className="form-control"></input>
+                                       className="form-control"
+                                       value={weight}
+                                       onChange={handleWeightChange}>
+                                </input>
                                 <span className="input-group-text">kg</span>
                             </div>
                         </form>
@@ -33,7 +44,11 @@ export default function EditNewSet({ idx, initWeight, initReps }) {
                         <form>
                             <label htmlFor='reps' className='form-label'>Reps performed</label>
                             <div className="input-group" id="reps">
-                                <input type="number" className="form-control"></input>
+                                <input type="number"
+                                       className="form-control"
+                                       value={reps}
+                                       onChange={handleRepChange}>
+                                </input>
                                 <span className="input-group-text">reps</span>
                             </div>
                         </form>
