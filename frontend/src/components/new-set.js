@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import EditNewSet from './edit-new-set'
 
-export default function NewSet({ idx, weight, reps, deleteFunction }) {
+export default function NewSet({ idx, weight, reps, deleteFunction, editFunction }) {
     const [style, setStyle] = useState({ display: 'none' })
 
     const handleMouseEnter = event => {
@@ -17,17 +17,31 @@ export default function NewSet({ idx, weight, reps, deleteFunction }) {
     }
 
     return (
-        <div className="container d-flex" onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
+        <div className="container d-flex"
+             onMouseEnter={handleMouseEnter}
+             onMouseLeave={handleMouseLeave}>
             <div className="container">
                 <div className='fw-bold'>Set {idx}</div>
                 {weight} kg x {reps} reps
             </div>
             
             <div className="btn-group btn-group-sm">
-                <button className="btn" style={style} data-bs-toggle="modal" data-bs-target={`#editset${idx}`}>edit</button>
-                <button className="btn" style={style} onClick={onDeleteButtonClick}>delete</button>
+                <button className="btn"
+                        style={style}
+                        data-bs-toggle="modal"
+                        data-bs-target={`#editset${idx}`}>
+                    edit
+                </button>
+                <button className="btn"
+                        style={style}
+                        onClick={onDeleteButtonClick}>
+                    delete
+                </button>
             </div>
-            <EditNewSet idx={idx} initWeight={weight} initReps={reps} />
+            <EditNewSet idx={idx}
+                        initWeight={weight}
+                        initReps={reps}
+                        editFunction={editFunction} />
         </div>
     )
 }

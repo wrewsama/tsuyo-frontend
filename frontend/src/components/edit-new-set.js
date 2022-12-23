@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 
-export default function EditNewSet({ idx, initWeight, initReps }) {
+export default function EditNewSet({ idx, initWeight, initReps, editFunction }) {
     const [submitted, setSubmitted] = useState(false)
     const [weight, setWeight] = useState(initWeight)
     const [reps, setReps] = useState(initReps)
@@ -14,7 +14,8 @@ export default function EditNewSet({ idx, initWeight, initReps }) {
     }
 
     const onSaveButtonClick = event => {
-
+        editFunction(idx, weight, reps)
+        setSubmitted(true)
     }
 
     return (
@@ -56,15 +57,12 @@ export default function EditNewSet({ idx, initWeight, initReps }) {
                             Close
                         </button>
 
-                        {submitted ? (
-                            <div></div>
-                        ) : (
-                            <button type="button"
-                                    className="btn btn-primary"
-                                    onClick={onSaveButtonClick}>
-                                Save
-                            </button>
-                        )}
+                        <button type="button"
+                                className="btn btn-primary"
+                                data-bs-dismiss="modal"
+                                onClick={onSaveButtonClick}>
+                            Save
+                        </button>
                     </div>
                 </div>
             </div>

@@ -66,6 +66,15 @@ export default function New() {
         setNewSets(temp)
     }
 
+    const editNewSet = (idx, editedWeight, editedReps) => {
+        const temp = [...newSets]
+        temp[idx-1] = {
+            weight: editedWeight,
+            reps: editedReps
+        }
+        setNewSets(temp)
+    }
+
     return (
         <div className="container">
             <div className="row px-2">
@@ -80,7 +89,8 @@ export default function New() {
                                 <NewSet idx={currIdx}
                                         weight={newSet.weight}
                                         reps={newSet.reps}
-                                        deleteFunction={deleteNewSet} />
+                                        deleteFunction={deleteNewSet}
+                                        editFunction={editNewSet} />
                             </li>
                         )
                     })
