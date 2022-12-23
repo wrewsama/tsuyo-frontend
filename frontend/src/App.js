@@ -4,6 +4,7 @@ import "bootstrap/dist/css/bootstrap.min.css"
 import ExercisesList from './components/exercises-list'
 import Exercise from "./components/exercise";
 import New from "./components/new";
+import History from "./components/history";
 
 // Temporary page
 
@@ -11,9 +12,7 @@ const Login = () => {
   return <h2>login</h2>;
 };
 
-const History = () => {
-  return <h1>history</h1>
-}
+
 const Graph = () => {
   return <h1>graph</h1>
 }
