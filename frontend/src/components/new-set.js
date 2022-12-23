@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 
-export default function NewSet({ idx, weight, reps }) {
+export default function NewSet({ idx, weight, reps, deleteFunction }) {
     const [style, setStyle] = useState({ display: 'none' })
 
     const handleMouseEnter = event => {
@@ -11,16 +11,20 @@ export default function NewSet({ idx, weight, reps }) {
         setStyle({ display: 'none' })
     }
 
+    const onDeleteButtonClick = event => {
+        deleteFunction(idx)
+    }
+
     return (
         <div className="container d-flex" onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
             <div className="container">
-                <div class='fw-bold'>Set {idx}</div>
+                <div className='fw-bold'>Set {idx}</div>
                 {weight} kg x {reps} reps
             </div>
             
             <div className="btn-group btn-group-sm">
-                <button class="btn" style={style}>edit</button>
-                <button class="btn" style={style}>delete</button>
+                <button className="btn" style={style}>edit</button>
+                <button className="btn" style={style} onClick={onDeleteButtonClick}>delete</button>
             </div>
             
         </div>
