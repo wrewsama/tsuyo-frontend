@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import EditNewSet from './edit-new-set'
 
 export default function NewSet({ idx, weight, reps, deleteFunction }) {
     const [style, setStyle] = useState({ display: 'none' })
@@ -23,10 +24,10 @@ export default function NewSet({ idx, weight, reps, deleteFunction }) {
             </div>
             
             <div className="btn-group btn-group-sm">
-                <button className="btn" style={style}>edit</button>
+                <button className="btn" style={style} data-bs-toggle="modal" data-bs-target={`#editset${idx}`}>edit</button>
                 <button className="btn" style={style} onClick={onDeleteButtonClick}>delete</button>
             </div>
-            
+            <EditNewSet idx={idx} initWeight={weight} initReps={reps} />
         </div>
     )
 }
