@@ -30,6 +30,11 @@ export default function New() {
     }
 
     const onSaveButtonClick = event => {
+        if (!newSets.length) {
+            // don't save if no new sets were added
+            return
+        }
+
         DataService.addWorkout({})
             .then(res => {
                 const workoutId = res.data.id
@@ -56,8 +61,8 @@ export default function New() {
     }
 
     const deleteNewSet = idx => {
-        const temp = newSets
-        temp.splice(idx, 1)
+        const temp = [...newSets]
+        temp.splice(idx-1, 1)
         setNewSets(temp)
     }
 
@@ -72,7 +77,10 @@ export default function New() {
                         currIdx++
                         return (
                             <li key={uuidv4()} className="list-group-item">
-                                <NewSet idx={currIdx} weight={newSet.weight} reps={newSet.reps} />
+                                <NewSet idx={currIdx}
+                                        weight={newSet.weight}
+                                        reps={newSet.reps}
+                                        deleteFunction={deleteNewSet} />
                             </li>
                         )
                     })
