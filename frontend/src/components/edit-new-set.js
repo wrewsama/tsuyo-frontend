@@ -13,10 +13,6 @@ export default function EditNewSet({ idx, initWeight, initReps }) {
         setReps(event.target.value)
     }
 
-    const onCancelButtonClick = event => {
-
-    }
-
     const onSaveButtonClick = event => {
 
     }
@@ -56,15 +52,18 @@ export default function EditNewSet({ idx, initWeight, initReps }) {
                     <div className="modal-footer">
                         <button type="button"
                                 className="btn btn-secondary"
-                                data-bs-dismiss="modal"
-                                onClick={onCancelButtonClick}>Close</button>
+                                data-bs-dismiss="modal">
+                            Close
+                        </button>
 
                         {submitted ? (
                             <div></div>
                         ) : (
                             <button type="button"
-                                className="btn btn-primary"
-                                onClick={onSaveButtonClick}>Save</button>
+                                    className="btn btn-primary"
+                                    onClick={onSaveButtonClick}>
+                                Save
+                            </button>
                         )}
                     </div>
                 </div>
