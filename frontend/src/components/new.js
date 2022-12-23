@@ -2,12 +2,14 @@ import React, { useState } from 'react'
 import { useOutletContext } from 'react-router-dom'
 import DataService from '../services/exercise'
 import { v4 as uuidv4 } from 'uuid'
+import NewSet from './new-set'
 
 export default function New() {
     const exercise = useOutletContext()
     const [newSets, setNewSets] = useState([]) // {weight, reps}
     const [weight, setWeight] = useState('')
     const [reps, setReps] = useState('')
+    let currIdx = 0
 
     const handleWeightChange = event => {
         setWeight(event.target.value)
@@ -53,15 +55,26 @@ export default function New() {
             })
     }
 
+    const deleteNewSet = idx => {
+        const temp = newSets
+        temp.splice(idx, 1)
+        setNewSets(temp)
+    }
+
     return (
         <div className="container">
             <div className="row px-2">
                 <h5>Sets</h5>
             </div>
-            <ul className="list-group list-group-numbered mb-3">
+            <ul className="list-group mb-3">
                 {
                     newSets.map(newSet => {
-                        return <li key={uuidv4()} className="list-group-item">{newSet.weight} {newSet.reps}</li>
+                        currIdx++
+                        return (
+                            <li key={uuidv4()} className="list-group-item">
+                                <NewSet idx={currIdx} weight={newSet.weight} reps={newSet.reps} />
+                            </li>
+                        )
                     })
                 }
             </ul>
