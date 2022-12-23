@@ -12,7 +12,6 @@ const ExercisesList = () => {
     const retrieveExercises = () => {
         DataService.getAllExercises()
             .then(res => {
-                console.log(res.data)
                 setExercises(res.data.exercises)
             })
             .catch(e => {
@@ -23,7 +22,6 @@ const ExercisesList = () => {
     const retrieveFilteredExercises = searchQuery => {
         DataService.findExercise(searchQuery)
             .then(res => {
-                console.log(res.data)
                 setExercises(res.data.exercises)
             })
             .catch(e => {
