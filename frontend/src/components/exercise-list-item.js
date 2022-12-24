@@ -5,12 +5,30 @@ import DataService from '../services/exercise'
 import EditExercise from './edit-exercise'
 import { Link } from 'react-router-dom'
 
-
+/**
+ * A Split Button representing a single Exercise in the Exercise List.
+ * 
+ * Clicking the main part of the body will link to the Exercise's page. The
+ * dropdown gives the option to either delete or update that Exercise.
+ * 
+ * @param {Object} exercise The exercise that this component represents.
+ * @param {Function} updateListFunction Callback function that updates the
+ *                                      list in exercises-list
+ */
 export default function ExerciseListItem({ exercise, updateListFunction }) {
 
+    /**
+     * Deletes an exercise from the database.
+     * 
+     * When the delete button is clicked, the id of this exercise is sent to
+     * the backend as a delete request. The callback function is then called
+     * to update the list in exercise-list.
+     */
     const onDeleteClick = event => {
+        // http delete request
         DataService.deleteExercise(exercise._id)
             .then(res => {
+                // update the list
                 updateListFunction()
             })
             .catch(e => {
