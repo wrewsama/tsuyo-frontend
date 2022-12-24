@@ -6,7 +6,7 @@ import "bootstrap/dist/css/bootstrap.min.css"
 /**
  * Modal that enables the user to add new exercises.
  * 
- * @param {Object} updateListFunction A callback function to update the list
+ * @param {Function} updateListFunction A callback function to update the list
  *                                    of exercises in exercisesList
  */
 export default function AddExercise({ updateListFunction }) {

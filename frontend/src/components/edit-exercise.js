@@ -7,7 +7,7 @@ import DataService from '../services/exercise'
  * Modal to facilitate the editing of an Exercise.
  * 
  * @param {Object} exercise The exercise to edit.
- * @param {Object} updateListFunction A callback function to update the list
+ * @param {Function} updateListFunction A callback function to update the list
  *                                    in exercises-list
  */
 export default function EditExercise({ exercise, updateListFunction }) {

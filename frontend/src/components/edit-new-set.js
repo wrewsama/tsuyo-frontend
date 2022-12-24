@@ -1,5 +1,11 @@
 import React, { useState } from 'react'
 
+/**
+ * Modal to facilitate the editing of a New Set in the New page.
+ * 
+ * @param {Object} idx
+ * @returns 
+ */
 export default function EditNewSet({ idx, initWeight, initReps, editFunction }) {
     const [submitted, setSubmitted] = useState(false)
     const [weight, setWeight] = useState(initWeight)
