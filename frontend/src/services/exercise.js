@@ -45,4 +45,8 @@ export default class DataService {
     static getSetsByExerciseId(eid) {
         return http.get(`/sets/${eid}`)
     }
+
+    static getWorkoutById(id) {
+        return http.get(`/workouts/${id}`)
+    }
 }
