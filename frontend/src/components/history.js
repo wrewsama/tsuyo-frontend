@@ -3,6 +3,9 @@ import { useParams } from 'react-router-dom'
 import DataService from '../services/exercise'
 import WorkoutItem from './workout-item'
 
+/**
+ * A container for the history of Sets and Workouts for this Exercise.
+ */
 export default function History() {
     const [listOfWorkoutItems, setListOfWorkoutItems] = useState([])
     const params = useParams()
