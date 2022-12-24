@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { useOutletContext, useParams} from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 import DataService from '../services/exercise'
 import WorkoutItem from './workout-item'
 
@@ -8,6 +8,14 @@ export default function History() {
     const params = useParams()
     const exerciseId = params.id
 
+    /**
+     * Updates the state of the listOfWorkoutItems.
+     * 
+     * When the page first renders, gets the exercise id from the url params
+     * and sends a http get request with the id. Then, copies the array of Sets
+     * from the response, groups them by workoutId, and updates the list of
+     * workout items.
+     */
     useEffect(() => {
         DataService.getSetsByExerciseId(exerciseId)
             .then(res => {
