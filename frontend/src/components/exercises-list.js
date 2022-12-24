@@ -5,10 +5,19 @@ import "bootstrap/dist/css/bootstrap.min.css"
 import ExerciseListItem from './exercise-list-item'
 import AddExercise from './add-exercise'
 
+/**
+ * The list of the Exercises added to tsuyo.
+ */
 const ExercisesList = () => {
     const [exercises, setExercises] = useState([])
     const [query, setQuery] = useState("")
 
+    /**
+     * Gets all the Exercises from the database.
+     * 
+     * Sends a get request to the backend API, takes the array of exercises
+     * from the response, then updates the exercises state with it.
+     */
     const retrieveExercises = () => {
         DataService.getAllExercises()
             .then(res => {
@@ -19,6 +28,15 @@ const ExercisesList = () => {
             })
     }
 
+    /**
+     * Gets all the Exercises with names matching a given query.
+     * 
+     * Sends a get request to the backend API with the given search query,
+     * takes the array of exercises from the response, then updates the
+     * exercises state with it.
+     * 
+     * @param {String} searchQuery The query that exercise names must match.
+     */
     const retrieveFilteredExercises = searchQuery => {
         DataService.findExercise(searchQuery)
             .then(res => {
@@ -29,6 +47,13 @@ const ExercisesList = () => {
             })
     }
 
+    /**
+     * Updates the query state when text is added in the search bar.
+     * 
+     * When text is added in the search bar, update the query state to that
+     * text. Also if the text is cleared, reload the full list of exercises
+     * automatically.
+     */
     const handleQueryChange = event => {
         setQuery(event.target.value)
         if (event.target.value === '') {
@@ -37,6 +62,13 @@ const ExercisesList = () => {
         
     }
 
+    /**
+     * Handles the user's keypresses.
+     * 
+     * If the user presses enter, retrieve the filtered exercises using
+     * the current state of query. If the user presses escape, set the query
+     * state to the empty string.
+     */
     const handleKeyDown = event => {
         if (event.key === "Enter") {
             retrieveFilteredExercises(query)
@@ -45,6 +77,9 @@ const ExercisesList = () => {
         }
     }
 
+    /**
+     * Load in all the exercises when the page is first rendered.
+     */
     useEffect(() => {
         retrieveExercises()
     }, [])
