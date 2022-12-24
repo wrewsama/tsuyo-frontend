@@ -3,30 +3,55 @@ import "bootstrap"
 import "bootstrap/dist/css/bootstrap.min.css"
 import DataService from '../services/exercise'
 
+/**
+ * Modal to facilitate the editing of an Exercise.
+ * 
+ * @param {Object} exercise The exercise to edit.
+ * @param {Object} updateListFunction A callback function to update the list
+ *                                    in exercises-list
+ */
 export default function EditExercise({ exercise, updateListFunction }) {
     const [newName, setNewName] = useState(exercise.name)
     const [newDesc, setNewDesc] = useState(exercise.desc)
     const [submitted, setSubmitted] = useState(false)
 
+    /**
+     * Updates the newName state when the name input is changed by the user.
+     */
     const handleNameChange = event => {
         setNewName(event.target.value)
     }
 
+    /**
+     * Updates the newDesc state when the desc input is changed by the user.
+     */
     const handleDescChange = event => {
         setNewDesc(event.target.value)
     }
 
+    /**
+     * Sets the submitted state to false when the Cancel button is clicked.
+     */
     const onCancelButtonClick = event => {
         setSubmitted(false)
     }
 
+    /**
+     * Updates an exercise in the database.
+     * 
+     * When the save button is clicked, take the id from the exercise field,
+     * along with the name and desc from the newName and newDesc states
+     * respectively. This data is then sent to the backend to update the
+     * exercise in the database.
+     */
     const onSaveButtonClick = event => {
-        console.log(exercise)
         const data = {
             id: exercise._id,
             name: newName,
             desc: newDesc
         }
+
+        // http put request
         DataService.updateExercise(data)
             .then(res =>{
                 updateListFunction()
@@ -35,6 +60,7 @@ export default function EditExercise({ exercise, updateListFunction }) {
                 console.error(e)
             })
 
+        // set submitted state
         setSubmitted(true)
     }
 
