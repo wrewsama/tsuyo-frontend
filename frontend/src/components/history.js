@@ -1,16 +1,47 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
+import { useOutletContext, useParams} from 'react-router-dom'
+import DataService from '../services/exercise'
 
 // temporary set component
-const WorkoutItem = () => {
+const WorkoutItem = ({ workoutId, listOfSets }) => {
+    console.log(listOfSets)
     return <div>hi</div>
 }
 
 export default function History() {
+    const [listOfWorkoutItems, setListOfWorkoutItems] = useState([])
+    const params = useParams()
+    const exerciseId = params.id
+
+    useEffect(() => {
+        DataService.getSetsByExerciseId(exerciseId)
+            .then(res => {
+                const copiedSetsList = [...res.data.sets]
+                const groupedSetsList = copiedSetsList.reduce((prev, curr) => {
+                    if (prev[curr.workoutId]) {
+                        prev[curr.workoutId].push(curr)
+                    } else {
+                        prev[curr.workoutId] = [curr] 
+                    }
+                    return prev
+                }, {})
+                const newListOfWorkoutItems = Object.entries(groupedSetsList)
+                setListOfWorkoutItems(newListOfWorkoutItems)
+            })
+            .catch(e => {
+                console.error(e)
+            })
+    }, [])
+
     return (
         <div className="container">
             <ul className="list-group">
                 <li className="list-group-item">
-                    <WorkoutItem />
+                    {listOfWorkoutItems.map(item => {
+                        return (
+                            <WorkoutItem workoutId={item[0]} listOfSets={item[1]} />
+                        )
+                    })}
                 </li>
             </ul>
         </div>

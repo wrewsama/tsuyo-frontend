@@ -38,7 +38,6 @@ const App = () => {
       <Routes>
         <Route path="/" element={<ExercisesList />} />
         <Route path="/:id" element={<Exercise />}>
-      {/* note to self: use contexts to send exercise data to the components */}
           <Route index element={<New />} />
           <Route path="history" element={<History />} />
           <Route path="graph" element={<Graph />} />

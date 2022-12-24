@@ -41,4 +41,8 @@ export default class DataService {
     static addWorkout(data) {
         return http.post("/workouts", data, axiosConfig)
     }
+
+    static getSetsByExerciseId(eid) {
+        return http.get(`/sets/${eid}`)
+    }
 }
