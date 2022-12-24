@@ -33,8 +33,8 @@ export default function History() {
             <ul className="list-group">
                 {listOfWorkoutItems.map(item => {
                     return (
-                        <li className="list-group-item">
-                            <WorkoutItem key = {item[0]} workoutId={item[0]} listOfSets={item[1]} />
+                        <li key = {item[0]} className="list-group-item">
+                            <WorkoutItem workoutId={item[0]} listOfSets={item[1]} />
                         </li>
                     )
                 })}
