@@ -4,6 +4,9 @@ import DataService from '../services/exercise'
 import { v4 as uuidv4 } from 'uuid'
 import NewSet from './new-set'
 
+/**
+ * A container to facilitate the addition of new sets for an Exercise.
+ */
 export default function New() {
     const exercise = useOutletContext()
     const [newSets, setNewSets] = useState([]) // {weight, reps}
@@ -11,35 +14,55 @@ export default function New() {
     const [reps, setReps] = useState('')
     let currIdx = 0
 
+    /**
+     * Updates the weight state when the weight input is updated.
+     */
     const handleWeightChange = event => {
         setWeight(event.target.value)
     }
 
+    /**
+     * Updates the reps state when the reps input is updated.
+     */
     const handleRepChange = event => {
         setReps(event.target.value)
     }
 
+    /**
+     * Updates the list of new sets with a new set when the Add button is
+     * clicked.
+     */
     const onAddButtonClick = event => {
         setNewSets([...newSets, { weight: weight ? weight : 0, reps: reps ? reps : 0}])
     }
 
+    /**
+     * Resets all states when the Clear button is clicked.
+     */
     const onClearButtonClick = event => {
         setNewSets([])
         setWeight('')
         setReps('')
     }
 
+    /**
+     * Add a workout and corresponding sets to the database.
+     */
     const onSaveButtonClick = event => {
         if (!newSets.length) {
             // don't save if no new sets were added
             return
         }
 
+        // Add a workout to the database
         DataService.addWorkout({})
             .then(res => {
-                const workoutId = res.data.id
+                // get the id of the recently created workout
+                const workoutId = res.data.id 
+                // get the id of this exercise
                 const exerciseId = exercise._id
 
+                // add all the sets to the database
                 let itemsProcessed = 0
                 newSets.forEach(set => {
                     const data = {
@@ -48,9 +71,11 @@ export default function New() {
                         weight: set.weight,
                         reps: set.reps
                     }
+                    // Add this set to the database
                     DataService.addSet(data)
                     itemsProcessed++
                     if (itemsProcessed === newSets.length) {
+                        // If all the sets have been added, clear.
                         onClearButtonClick()
                     }
                 })
@@ -60,12 +85,22 @@ export default function New() {
             })
     }
 
+    /**
+     * Deletes a set from the list of New Sets.
+     */
     const deleteNewSet = idx => {
         const temp = [...newSets]
         temp.splice(idx-1, 1)
         setNewSets(temp)
     }
 
+    /**
+     * Edits a New Set.
+     * 
+     * @param {Number} idx The index number of the set to edit.
+     * @param {Number} editedWeight The new weight of the set.
+     * @param {Number} editedReps The new number of reps of the set.
+     */
     const editNewSet = (idx, editedWeight, editedReps) => {
         const temp = [...newSets]
         temp[idx-1] = {
