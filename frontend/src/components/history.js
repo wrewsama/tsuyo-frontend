@@ -31,13 +31,13 @@ export default function History() {
     return (
         <div className="container">
             <ul className="list-group">
-                <li className="list-group-item">
-                    {listOfWorkoutItems.map(item => {
-                        return (
+                {listOfWorkoutItems.map(item => {
+                    return (
+                        <li className="list-group-item">
                             <WorkoutItem key = {item[0]} workoutId={item[0]} listOfSets={item[1]} />
-                        )
-                    })}
-                </li>
+                        </li>
+                    )
+                })}
             </ul>
         </div>
     )
