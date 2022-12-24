@@ -3,20 +3,39 @@ import DataService from '../services/exercise'
 import "bootstrap"
 import "bootstrap/dist/css/bootstrap.min.css" 
 
+/**
+ * Modal that enables the user to add new exercises.
+ * 
+ * @param {Object} updateListFunction A callback function to update the list
+ *                                    of exercises in exercisesList
+ */
 export default function AddExercise({ updateListFunction }) {
-
     const [newName, setNewName] = useState('')
     const [newDesc, setNewDesc] = useState('')
     const [submitted, setSubmitted] = useState(false)
 
+    /**
+     * Updates the newName state when the name input is changed by the user.
+     */
     const handleNameChange = event => {
         setNewName(event.target.value)
     }
 
+    /**
+     * Updates the newDesc state when the desc input is changed by the user.
+     */
     const handleDescChange = event => {
         setNewDesc(event.target.value)
     }
 
+    /**
+     * Adds a new exercise to the database.
+     * 
+     * When the user clicks the Add Button, sends a http get request to the
+     * backend with the the name and desc stored inside the newName and newDesc
+     * states respectively. Then, clears the inputs and sets the submitted
+     * state to true.
+     */
     const onAddButtonClick = event => {
         const request = {
             name: newName,
@@ -35,9 +54,13 @@ export default function AddExercise({ updateListFunction }) {
         setNewName('')
         setNewDesc('')
 
+        // Change state to submitted
         setSubmitted(true)
     }
 
+    /**
+     * Sets the submitted state to false when the Close button is clicked.
+     */
     const onCloseButtonClick = event => {
         setSubmitted(false)
     }
