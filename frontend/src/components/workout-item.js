@@ -44,15 +44,32 @@ export default function WorkoutItem({ workoutId, listOfSets }) {
         
     }
 
+    const onDeleteClick = event => {
+        console.log('placeholder')
+    }
+
     return (
         <div className="container">
             <div className="row">
-                <div className="col fw-bold">
+                <div className="col fw-bold align-baseline">
                     {getDate(workout).dayMonthYear}
                 </div>
 
-                <div className="col fw-bold text-end">
+                <div className="col fw-bold text-end align-middle">
                     {getDate(workout).time}
+                </div>
+
+                <div className="col-1 btn-group">
+                    <button type="button"
+                            className="btn dropdown-toggle btn-sm"
+                            data-bs-toggle="dropdown"
+                            aria-expanded="false"></button>
+                    <ul className="dropdown-menu">
+                        <li><button className="dropdown-item" data-bs-toggle="modal" data-bs-target={`#edit${workoutId}`}>Edit</button></li>
+                        <li><hr className="dropdown-divider"></hr></li>
+                        <li><button className="dropdown-item" onClick={onDeleteClick}>Delete</button></li>
+                    </ul>
+                    
                 </div>
             </div>
             <div className="list-group list-group-flush">
