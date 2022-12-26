@@ -14,12 +14,11 @@ export default function History() {
     /**
      * Updates the state of the listOfWorkoutItems.
      * 
-     * When the page first renders, gets the exercise id from the url params
-     * and sends a http get request with the id. Then, copies the array of Sets
-     * from the response, groups them by workoutId, and updates the list of
-     * workout items.
+     * Gets the exercise id from the url params and sends a http get request
+     * with the id. Then, copies the array of Sets from the response,
+     * groups them by workoutId, and updates the list of workout items.
      */
-    useEffect(() => {
+    const retrieveWorkoutItems = () => {
         DataService.getSetsByExerciseId(exerciseId)
             .then(res => {
                 const copiedSetsList = [...res.data.sets]
@@ -37,6 +36,13 @@ export default function History() {
             .catch(e => {
                 console.error(e)
             })
+    }
+
+    /**
+     * Updates the state of the listOfWorkoutItems when the page first renders.
+     */
+    useEffect(() => {
+        retrieveWorkoutItems()
     }, [])
 
     return (
