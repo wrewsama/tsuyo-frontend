@@ -51,7 +51,9 @@ export default function History() {
                 {listOfWorkoutItems.map(item => {
                     return (
                         <li key = {item[0]} className="list-group-item">
-                            <WorkoutItem workoutId={item[0]} listOfSets={item[1]} />
+                            <WorkoutItem workoutId={item[0]}
+                                         listOfSets={item[1]}
+                                         updateListFunction={retrieveWorkoutItems} />
                         </li>
                     )
                 })}

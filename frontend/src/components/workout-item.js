@@ -7,8 +7,10 @@ import { v4 as uuidv4 } from 'uuid'
  * 
  * @param {String} workoutId The id of the workout that these sets belong to.
  * @param {Array} listOfSets The group of sets belonging to this workout.
+ * @param {Function} updateListFunction Callback function to update the list
+ *                                      of workout items in the history page.
  */
-export default function WorkoutItem({ workoutId, listOfSets }) {
+export default function WorkoutItem({ workoutId, listOfSets, updateListFunction }) {
     // placeholder date used to avoid getDate error
     const [workout, setWorkout] = useState({date: "YYYY-mm-ddTHH:MM:ssZ"})
 
@@ -32,7 +34,6 @@ export default function WorkoutItem({ workoutId, listOfSets }) {
      * @returns Object containing the date and time as Strings.
      */
     const getDate = (workout) => {
-        console.log(workout)
         const date = workout.date
         const idx = date.indexOf('T')
         const hours = (parseInt(date.slice(idx+1, idx+3)) + 8).toString()
@@ -45,7 +46,22 @@ export default function WorkoutItem({ workoutId, listOfSets }) {
     }
 
     const onDeleteClick = event => {
-        console.log('placeholder')
+        DataService.deleteWorkout(workoutId) // delete the workout
+            .then(res => {
+                // then delete all sets belonging to this workout
+                let itemsProcessed = 0
+                listOfSets.forEach(set => {
+                    DataService.deleteSet(set._id)
+                        .then(res => {
+                            itemsProcessed++
+
+                            // if all sets have been deleted, update the list
+                            if (itemsProcessed === listOfSets.length) {
+                                updateListFunction()
+                            }
+                        })
+                });
+            })
     }
 
     return (
