@@ -83,9 +83,19 @@ export default function WorkoutItem({ workoutId, listOfSets, updateListFunction 
                             data-bs-toggle="dropdown"
                             aria-expanded="false"></button>
                     <ul className="dropdown-menu">
-                        <li><button className="dropdown-item" data-bs-toggle="modal" data-bs-target={`#edit${workoutId}`}>Edit</button></li>
+                        <li>
+                            <button className="dropdown-item"
+                                    data-bs-toggle="modal"
+                                    data-bs-target={`#edit${workoutId}`}>
+                                Edit
+                            </button>
+                        </li>
                         <li><hr className="dropdown-divider"></hr></li>
-                        <li><button className="dropdown-item" onClick={onDeleteClick}>Delete</button></li>
+                        <li>
+                            <button className="dropdown-item" onClick={onDeleteClick}>
+                                Delete
+                            </button>
+                        </li>
                     </ul>
                     
                 </div>
