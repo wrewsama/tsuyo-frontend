@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import DataService from '../services/exercise'
 import { v4 as uuidv4 } from 'uuid'
+import EditWorkout from './edit-workout'
+import "bootstrap"
 
 /**
  * Container representing 1 group of sets.
@@ -87,6 +89,7 @@ export default function WorkoutItem({ workoutId, listOfSets, updateListFunction 
                     </ul>
                     
                 </div>
+                <EditWorkout workoutId={workoutId} />
             </div>
             <div className="list-group list-group-flush">
                 {
