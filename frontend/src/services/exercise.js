@@ -119,4 +119,26 @@ export default class DataService {
     static getWorkoutById(id) {
         return http.get(`/workouts/${id}`)
     }
+
+    /**
+     * Deletes a workout from the database.
+     * 
+     * @param {String} id The id of the workout to be deleted.
+     * @returns success if the workout is successfully deleted
+     *          error otherwise
+     */
+    static deleteWorkout(id) {
+        return http.delete(`/workouts?id=${id}`)
+    }
+
+     /**
+     * Deletes a set from the database.
+     * 
+     * @param {String} id The id of the set to be deleted.
+     * @returns success if the set is successfully deleted
+     *          error otherwise
+     */
+    static deleteSet(id) {
+        return http.delete(`/sets?id=${id}`)
+    }
 }
