@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import DataService from '../services/exercise'
+import { useParams } from 'react-router-dom'
 
 function EditSetInWorkout({ set }) {
     const [weight, setWeight] = useState(set.weight)
@@ -42,9 +43,26 @@ function EditSetInWorkout({ set }) {
     )
 }
 
-export default function EditWorkout({ workoutId, listOfSets, updateListFunction }) {
+export default function EditWorkout({ workoutId, initialListOfSets, updateListFunction }) {
+    const [listOfSets, setListOfSets] = useState(initialListOfSets)
+    const exerciseId = useParams().id
+
     const onSaveButtonClick = event => {
         updateListFunction()
+    }
+
+    const onAddButtonClick = event => {
+        const data = {
+            workoutId: workoutId,
+            exerciseId: exerciseId,
+            weight: 0,
+            reps: 0
+        }
+        DataService.addSet(data)
+            .then(res => {
+                const newSet = res.data.set
+                setListOfSets([...listOfSets, newSet])
+            })
     }
 
     return (
@@ -68,6 +86,10 @@ export default function EditWorkout({ workoutId, listOfSets, updateListFunction 
                                 })
                             }
                         </form>
+                        <button className="btn btn-outline-primary float-end"
+                                onClick={onAddButtonClick}>
+                            Add a new set
+                        </button>
                     </div>
                     <div className="modal-footer">
                         <button type="button"
