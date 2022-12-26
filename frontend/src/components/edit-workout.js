@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import DataService from '../services/exercise'
 import { useParams } from 'react-router-dom'
 
-function EditSetInWorkout({ set }) {
+function EditSetInWorkout({ set, deleteFunction }) {
     const [weight, setWeight] = useState(set.weight)
     const [reps, setReps] = useState(set.reps)
 
@@ -25,6 +25,11 @@ function EditSetInWorkout({ set }) {
 
     useEffect(updateDB, [weight, reps])
 
+    const onDeleteButtonClick = event => {
+        event.preventDefault()
+        deleteFunction(set._id)
+    }
+
     return (
         <div className="input-group mb-3">
             <input type="number"
@@ -39,6 +44,8 @@ function EditSetInWorkout({ set }) {
                     onChange={handleRepChange}
                     value={reps} />
             <div className="input-group-text">reps</div>
+            <button className="btn btn-outline-danger"
+                    onClick={onDeleteButtonClick}>x</button>
         </div>
     )
 }
@@ -65,8 +72,16 @@ export default function EditWorkout({ workoutId, initialListOfSets, updateListFu
             })
     }
 
+    const deleteFunction = setId => {
+        DataService.deleteSet(setId)
+            .then(res => {
+                const temp = listOfSets.filter(set => set._id !== setId)
+                setListOfSets(temp)
+            })
+    }
+
     return (
-        <div className="modal" id={`edit${workoutId}`}>
+        <div className="modal fade" id={`edit${workoutId}`}>
             <div className="modal-dialog">
                 <div className="modal-content">
                     <div className="modal-header">
@@ -81,7 +96,9 @@ export default function EditWorkout({ workoutId, initialListOfSets, updateListFu
                             {
                                 listOfSets.map(set => {
                                     return (
-                                        <EditSetInWorkout key={set._id} set={set} />
+                                        <EditSetInWorkout key={set._id}
+                                                          set={set}
+                                                          deleteFunction={deleteFunction} />
                                     )
                                 })
                             }
