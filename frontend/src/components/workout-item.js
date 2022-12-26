@@ -99,7 +99,9 @@ export default function WorkoutItem({ workoutId, listOfSets, updateListFunction 
                     </ul>
                     
                 </div>
-                <EditWorkout workoutId={workoutId} />
+                <EditWorkout workoutId={workoutId}
+                             listOfSets={listOfSets}
+                             updateListFunction={updateListFunction}/>
             </div>
             <div className="list-group list-group-flush">
                 {

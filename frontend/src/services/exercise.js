@@ -141,4 +141,16 @@ export default class DataService {
     static deleteSet(id) {
         return http.delete(`/sets?id=${id}`)
     }
+
+    /**
+     * Updates a Set in the database.
+     * 
+     * @param {Object} data A json object containing the fields that need
+     *                      to be updated.
+     * @returns success if the Set is successfully updated
+     *          error otherwise
+     */
+    static updateSet(data) {
+        return http.put("/sets", data, axiosConfig)
+    }
 }
