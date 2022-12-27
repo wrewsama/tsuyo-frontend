@@ -81,6 +81,7 @@ export default function Graph() {
                             newListOfWorkoutItems.push([res.data.date, pair[1]])
                             itemsProcessed++
                             if (itemsProcessed === groupedSetsArray.length) {
+                                newListOfWorkoutItems.sort((a, b) => new Date(a[0]) - new Date(b[0]))
                                 setListOfWorkoutItems(newListOfWorkoutItems)
                             }
                         })
