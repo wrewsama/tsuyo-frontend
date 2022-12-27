@@ -5,17 +5,13 @@ import ExercisesList from './components/exercises-list'
 import Exercise from "./components/exercise";
 import New from "./components/new";
 import History from "./components/history";
+import Graph from "./components/graph";
 
 // Temporary page
 
 const Login = () => {
   return <h2>login</h2>;
 };
-
-
-const Graph = () => {
-  return <h1>graph</h1>
-}
 
 const App = () => {
   return (
