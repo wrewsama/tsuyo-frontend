@@ -31,15 +31,31 @@ export default function Graph() {
         const setList = workout[1]
         return setList.reduce((prev, curr) => prev + curr.weight, 0)
     })
-
+    const oneRepMaxes = listOfWorkoutItems.map(workout => {
+        const setList = workout[1]
+        return setList.reduce((prev, curr) => {
+            const weight = curr.weight
+            const reps = curr.reps
+            const oneRm = weight / ( 1.0278 - 0.0278 * reps )
+            return Math.max(prev, oneRm)
+        }, 0)
+    })
     const data = {
         labels: xValues,
-        datasets: [{
-            label: 'total weight',
-            data: totalWeights,
-            tension: 0.4,
-            borderColor: ['rgba(255,99,132,0.2)']
-        }]
+        datasets: [
+            {
+                label: 'total weight',
+                data: totalWeights,
+                tension: 0.4,
+                borderColor: ['rgba(255,99,132,0.8)']
+            },
+            {
+                label: '1RM',
+                data: oneRepMaxes,
+                tension: 0.4,
+                borderColor: ['rgba(54,162,235,0.8)']
+            }
+        ]
 
     }
     const options = {
@@ -47,7 +63,7 @@ export default function Graph() {
             x: {
                 type: 'time',
                 time: {
-                    unit: 'second'
+                    unit: 'day'
                 }
             }
         }
