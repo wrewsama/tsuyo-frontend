@@ -1,20 +1,50 @@
 import React from 'react'
-import Chart from 'chart.js/auto';
+import {
+    Chart,
+    LineElement,
+    TimeScale,
+    LinearScale,
+    PointElement,
+    Tooltip,
+    Legend
+} from 'chart.js';
 import { Line } from "react-chartjs-2"
+import 'chartjs-adapter-date-fns';
 
+Chart.register(
+    LineElement,
+    TimeScale,
+    LinearScale,
+    PointElement,
+    Tooltip,
+    Legend
+)
 export default function Graph() {
-    const labels = ['1', '2', '3', '4', '5', '6', '7' ] // x axis - should be datetime
+    const labels = ['2022-11-01', '2022-11-02', '2022-11-04']
+    const data = {
+        labels: labels,
+        datasets: [{
+            label: 'label',
+            data: [1, 2, 3],
+            tension: 0.4
+        }]
+
+    }
+    const options = {
+        scales: {
+            x: {
+                type: 'time',
+                time: {
+                    unit: 'day'
+                }
+            }
+        }
+    }
     return (
         <div className="container">
             <Line 
-                data = {{
-                    labels: labels,
-                    datasets: [{
-                        label: 'My First Dataset',
-                        data: [65, 59, 80, 81, 56, 55, 40], // y axis - should be 1rm
-                        borderWidth: 1
-                    }]
-                }}
+                data={data}
+                options={options}
             />
         </div>
     )
