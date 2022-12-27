@@ -36,13 +36,10 @@ export default function WorkoutItem({ workoutId, listOfSets, updateListFunction 
      * @returns Object containing the date and time as Strings.
      */
     const getDate = (workout) => {
-        const date = workout.date
-        const idx = date.indexOf('T')
-        const hours = (parseInt(date.slice(idx+1, idx+3)) + 8).toString()
-        const minutes = date.slice(idx+4, idx+6)
+        const date = new Date(workout.date)
         return {
-            dayMonthYear: date.slice(0, idx),
-            time: hours + ":" + minutes
+            dayMonthYear: date.toDateString(),
+            time: date.toLocaleTimeString()
         }
         
     }
