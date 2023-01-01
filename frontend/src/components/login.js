@@ -1,17 +1,27 @@
 import React, { useState } from 'react'
+import { useLogin } from '../hooks/useLogin'
 
 export default function Login() {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
+    const { login, error, isLoading } = useLogin()
     
     const handleSubmit = async (e) => {
         e.preventDefault()
 
-        console.log(email, password)
+        await login(email, password)
     }
 
     return (
         <div className="container">
+            {
+                error && (
+                    <div className="alert alert-danger">
+                        {error}
+                    </div>
+                )
+            }
+
             <form onSubmit={handleSubmit}>
                 <div className="row text-center">
                     <h3>Log in</h3>
@@ -37,7 +47,8 @@ export default function Login() {
                     </input>
                 </div>
 
-                <button className="btn btn-primary mt-3 float-end">
+                <button className="btn btn-primary mt-3 float-end"
+                        disabled={isLoading}>
                     Log in
                 </button>
             </form>
