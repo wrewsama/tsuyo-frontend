@@ -6,12 +6,8 @@ import Exercise from "./components/exercise";
 import New from "./components/new";
 import History from "./components/history";
 import Graph from "./components/graph";
-
-// Temporary page
-
-const Login = () => {
-  return <h2>login</h2>;
-};
+import Login from "./components/login";
+import Signup from "./components/signup";
 
 const App = () => {
   return (
@@ -22,10 +18,10 @@ const App = () => {
 
           <ul className="navbar-nav">
             <li className="nav-item">
-              <Link to="/" className="nav-link">Exercises</Link>
+              <Link to="/login" className="nav-link">Login</Link>
             </li>
             <li className="nav-item">
-              <Link to="/login" className="nav-link">Login</Link>
+              <Link to="/signup" className="nav-link">Sign Up</Link>
             </li>
           </ul>
         </div>
@@ -39,6 +35,7 @@ const App = () => {
           <Route path="graph" element={<Graph />} />
         </Route>
         <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<Signup />} />
       </Routes>
     </div>
     
