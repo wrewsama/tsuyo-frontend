@@ -8,8 +8,15 @@ import History from "./components/history";
 import Graph from "./components/graph";
 import Login from "./components/login";
 import Signup from "./components/signup";
+import { useLogout } from "./hooks/useLogout";
 
 const App = () => {
+  const { logout } = useLogout()
+
+  const handleLogout = () => {
+    logout()
+  }
+
   return (
     <div>
       <nav className="navbar navbar-expand">
@@ -18,7 +25,13 @@ const App = () => {
 
           <ul className="navbar-nav">
             <li className="nav-item">
-              <Link to="/login" className="nav-link">Login</Link>
+              <button className="btn"
+                      onClick={handleLogout}>
+                Log out
+              </button>
+            </li>
+            <li className="nav-item">
+              <Link to="/login" className="nav-link">Log in</Link>
             </li>
             <li className="nav-item">
               <Link to="/signup" className="nav-link">Sign Up</Link>
