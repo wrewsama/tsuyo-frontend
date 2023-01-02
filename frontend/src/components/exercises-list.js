@@ -72,8 +72,12 @@ const ExercisesList = () => {
      * state to the empty string.
      */
     const handleKeyDown = event => {
+        if (!user) {
+            return
+        }
+        
         if (event.key === "Enter") {
-            retrieveFilteredExercises(query)
+            retrieveFilteredExercises(query, user.token)
         } else if (event.key === "Escape") {
             setQuery("")
         }

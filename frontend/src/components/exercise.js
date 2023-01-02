@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { useParams, Link, Outlet } from 'react-router-dom'
 import DataService from '../services/exercise'
+import { useAuthContext } from '../hooks/useAuthContext'
 
 /**
  * Layout for the /:id route.
@@ -12,6 +13,7 @@ import DataService from '../services/exercise'
 export default function Exercise() {
     const [exercise, setExercise] = useState({})
     const { id } = useParams()
+    const { user } = useAuthContext()
 
     /**
      * Sets the exercise state to the correct exercise object.
@@ -22,14 +24,16 @@ export default function Exercise() {
      * the first time the page is rendered.
      */
     useEffect(() => {
-        DataService.findExerciseById(id)
-        .then(res => {
-            setExercise(res.data)
-        })
-        .catch(e => {
-            console.error(e)
-        })
-    }, [])
+        if (user) {
+            DataService.findExerciseById(id, user.token)
+            .then(res => {
+                setExercise(res.data)
+            })
+            .catch(e => {
+                console.error(e)
+            })
+        }
+    }, [user])
 
     return (
         <div className="container">
