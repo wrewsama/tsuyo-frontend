@@ -12,6 +12,8 @@ import {
 } from 'chart.js';
 import { Line } from "react-chartjs-2"
 import 'chartjs-adapter-date-fns';
+import { useAuthContext } from '../hooks/useAuthContext'
+
 
 Chart.register(
     LineElement,
@@ -25,6 +27,7 @@ export default function Graph() {
     const [listOfWorkoutItems, setListOfWorkoutItems] = useState([])
     const params = useParams()
     const exerciseId = params.id 
+    const { user } = useAuthContext()
 
     const xValues = listOfWorkoutItems.map(workout => workout[0])
     const totalWeights = listOfWorkoutItems.map(workout => {
@@ -75,8 +78,8 @@ export default function Graph() {
      * with the id. Then, copies the array of Sets from the response,
      * groups them by workoutId, and updates the list of workout items.
      */
-    const retrieveWorkoutItems = () => {
-        DataService.getSetsByExerciseId(exerciseId)
+    const retrieveWorkoutItems = (token) => {
+        DataService.getSetsByExerciseId(exerciseId, token)
             .then(res => {
                 const copiedSetsList = [...res.data.sets]
                 const groupedSetsList = copiedSetsList.reduce((prev, curr) => {
@@ -92,7 +95,7 @@ export default function Graph() {
                 let itemsProcessed = 0
                 groupedSetsArray.forEach(pair => {
                     const workoutId = pair[0]
-                    DataService.getWorkoutById(workoutId)
+                    DataService.getWorkoutById(workoutId, token)
                         .then(res => {
                             newListOfWorkoutItems.push([res.data.date, pair[1]])
                             itemsProcessed++
@@ -109,7 +112,11 @@ export default function Graph() {
             })
     }
 
-    useEffect(retrieveWorkoutItems, [])
+    useEffect(() => {
+        if (user) {
+            retrieveWorkoutItems(user.token)
+        }
+    }, [user])
 
     return (
         <div className="container">
