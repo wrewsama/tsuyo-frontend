@@ -3,6 +3,7 @@ import DataService from '../services/exercise'
 import { v4 as uuidv4 } from 'uuid'
 import EditWorkout from './edit-workout'
 import "bootstrap"
+import { useAuthContext } from '../hooks/useAuthContext'
 
 /**
  * Container representing 1 group of sets.
@@ -15,19 +16,22 @@ import "bootstrap"
 export default function WorkoutItem({ workoutId, listOfSets, updateListFunction }) {
     // placeholder date used to avoid getDate error
     const [workout, setWorkout] = useState({date: "YYYY-mm-ddTHH:MM:ssZ"})
+    const { user } = useAuthContext()
 
     /**
      * Retrieves and sets the current workout by the workoutId.
      */
     useEffect(() => {
-        DataService.getWorkoutById(workoutId)
-            .then(res => {
-                setWorkout(res.data)
-            })
-            .catch(e => {
-                console.error(e)
-            })
-    }, [])
+        if (user) {
+            DataService.getWorkoutById(workoutId, user.token)
+                .then(res => {
+                    setWorkout(res.data)
+                })
+                .catch(e => {
+                    console.error(e)
+                })
+        }
+    }, [user])
 
     /**
      * Parses the date saved in a given workout.
@@ -45,18 +49,22 @@ export default function WorkoutItem({ workoutId, listOfSets, updateListFunction 
     }
 
     const onDeleteClick = event => {
-        DataService.deleteWorkout(workoutId) // delete the workout
+        if (!user) {
+            return
+        }
+
+        DataService.deleteWorkout(workoutId, user.token) // delete the workout
             .then(res => {
                 // then delete all sets belonging to this workout
                 let itemsProcessed = 0
                 listOfSets.forEach(set => {
-                    DataService.deleteSet(set._id)
+                    DataService.deleteSet(set._id, user.token)
                         .then(res => {
                             itemsProcessed++
 
                             // if all sets have been deleted, update the list
                             if (itemsProcessed === listOfSets.length) {
-                                updateListFunction()
+                                updateListFunction(user.token)
                             }
                         })
                 });

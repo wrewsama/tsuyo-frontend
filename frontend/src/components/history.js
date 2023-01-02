@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import DataService from '../services/exercise'
 import WorkoutItem from './workout-item'
+import { useAuthContext } from '../hooks/useAuthContext'
 
 /**
  * A container for the history of Sets and Workouts for this Exercise.
@@ -10,6 +11,7 @@ export default function History() {
     const [listOfWorkoutItems, setListOfWorkoutItems] = useState([])
     const params = useParams()
     const exerciseId = params.id
+    const { user } = useAuthContext()
 
     /**
      * Updates the state of the listOfWorkoutItems.
@@ -18,8 +20,8 @@ export default function History() {
      * with the id. Then, copies the array of Sets from the response,
      * groups them by workoutId, and updates the list of workout items.
      */
-    const retrieveWorkoutItems = () => {
-        DataService.getSetsByExerciseId(exerciseId)
+    const retrieveWorkoutItems = (token) => {
+        DataService.getSetsByExerciseId(exerciseId, token)
             .then(res => {
                 const copiedSetsList = [...res.data.sets]
                 const groupedSetsList = copiedSetsList.reduce((prev, curr) => {
@@ -42,8 +44,10 @@ export default function History() {
      * Updates the state of the listOfWorkoutItems when the page first renders.
      */
     useEffect(() => {
-        retrieveWorkoutItems()
-    }, [])
+        if (user) {
+            retrieveWorkoutItems(user.token)
+        }
+    }, [user])
 
     return (
         <div className="container">

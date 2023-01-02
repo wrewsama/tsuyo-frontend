@@ -1,18 +1,24 @@
 import React, { useState, useEffect } from 'react'
 import DataService from '../services/exercise'
 import { useParams } from 'react-router-dom'
+import { useAuthContext } from '../hooks/useAuthContext'
 
 function EditSetInWorkout({ set, deleteFunction }) {
     const [weight, setWeight] = useState(set.weight)
     const [reps, setReps] = useState(set.reps)
+    const { user } = useAuthContext()
 
     const updateDB = () => {
+        if (!user) {
+            return
+        }
+
         const data = {
             id: set._id,
             weight: weight,
             reps: reps
         }
-        DataService.updateSet(data)
+        DataService.updateSet(data, user.token)
     }
 
     const handleRepChange = event => {
@@ -26,8 +32,12 @@ function EditSetInWorkout({ set, deleteFunction }) {
     useEffect(updateDB, [weight, reps])
 
     const onDeleteButtonClick = event => {
+        if (!user) {
+            return
+        }
+
         event.preventDefault()
-        deleteFunction(set._id)
+        deleteFunction(set._id, user.token)
     }
 
     return (
@@ -53,27 +63,36 @@ function EditSetInWorkout({ set, deleteFunction }) {
 export default function EditWorkout({ workoutId, initialListOfSets, updateListFunction }) {
     const [listOfSets, setListOfSets] = useState(initialListOfSets)
     const exerciseId = useParams().id
+    const { user } = useAuthContext()
 
     const onSaveButtonClick = event => {
-        updateListFunction()
+        if (!user) {
+            return
+        }
+        
+        updateListFunction(user.token)
     }
 
     const onAddButtonClick = event => {
+        if (!user) {
+            return
+        }
+
         const data = {
             workoutId: workoutId,
             exerciseId: exerciseId,
             weight: 0,
             reps: 0
         }
-        DataService.addSet(data)
+        DataService.addSet(data, user.token)
             .then(res => {
                 const newSet = res.data.set
                 setListOfSets([...listOfSets, newSet])
             })
     }
 
-    const deleteFunction = setId => {
-        DataService.deleteSet(setId)
+    const deleteFunction = (setId, token) => {
+        DataService.deleteSet(setId, token)
             .then(res => {
                 const temp = listOfSets.filter(set => set._id !== setId)
                 setListOfSets(temp)
