@@ -35,12 +35,6 @@ export default function MainNavbar() {
                     ) : (
                         <ul className="navbar-nav">
                             <li className="nav-item">
-                                <button className="btn"
-                                        onClick={handleLogout}>
-                                    Log out
-                                </button>
-                            </li>
-                            <li className="nav-item">
                                 <Link to="/login" className="nav-link">Log in</Link>
                             </li>
                             <li className="nav-item">
