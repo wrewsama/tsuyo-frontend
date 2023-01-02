@@ -4,6 +4,7 @@ import 'bootstrap'
 import "bootstrap/dist/css/bootstrap.min.css"
 import ExerciseListItem from './exercise-list-item'
 import AddExercise from './add-exercise'
+import { useAuthContext } from '../hooks/useAuthContext'
 
 /**
  * The list of the Exercises added to tsuyo.
@@ -11,6 +12,7 @@ import AddExercise from './add-exercise'
 const ExercisesList = () => {
     const [exercises, setExercises] = useState([])
     const [query, setQuery] = useState("")
+    const { user } = useAuthContext()
 
     /**
      * Gets all the Exercises from the database.
@@ -18,8 +20,8 @@ const ExercisesList = () => {
      * Sends a get request to the backend API, takes the array of exercises
      * from the response, then updates the exercises state with it.
      */
-    const retrieveExercises = () => {
-        DataService.getAllExercises()
+    const retrieveExercises = (token) => {
+        DataService.getAllExercises(token)
             .then(res => {
                 setExercises(res.data.exercises)
             })
@@ -37,8 +39,8 @@ const ExercisesList = () => {
      * 
      * @param {String} searchQuery The query that exercise names must match.
      */
-    const retrieveFilteredExercises = searchQuery => {
-        DataService.findExercise(searchQuery)
+    const retrieveFilteredExercises = (searchQuery, token) => {
+        DataService.findExercise(searchQuery, token)
             .then(res => {
                 setExercises(res.data.exercises)
             })
@@ -81,8 +83,11 @@ const ExercisesList = () => {
      * Load in all the exercises when the page is first rendered.
      */
     useEffect(() => {
-        retrieveExercises()
-    }, [])
+        if (user) {
+            retrieveExercises(user.token)
+        }
+        
+    }, [user])
 
     return (
         <div className="container">

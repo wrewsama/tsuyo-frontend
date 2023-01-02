@@ -1,6 +1,5 @@
 import http from "../http-common"
 
-// weird hack to allow passing in data to work
 let axiosConfig = {
     headers: {
         'Content-Type': 'application/json;charset=UTF-8',
@@ -18,8 +17,13 @@ export default class DataService {
      * @returns Object containing an Array with all the exercises in the
      *          exercises field.
      */
-    static getAllExercises() {
-        return http.get('/exercises')
+    static getAllExercises(token) {
+        let config = {
+            headers: {
+                "Authorization": `Bearer ${token}`
+            }
+        }
+        return http.get('/exercises', config)
     }
 
     /**
@@ -29,8 +33,14 @@ export default class DataService {
      * @returns Object containing an Array with all the exercises in the
      *          exercises field.
      */
-    static findExercise(query) {
-        return http.get(`/exercises?name=${query}`)
+    static findExercise(query, token) {
+        let config = {
+            headers: {
+                "Authorization": `Bearer ${token}`
+            }
+        }
+
+        return http.get(`/exercises?name=${query}`, config)
     }
 
     /**
@@ -39,8 +49,13 @@ export default class DataService {
      * @param {String} id The id of the desired Exercise.
      * @returns The desired Exercise document
      */
-    static findExerciseById(id) {
-        return http.get(`/exercises/${id}`)
+    static findExerciseById(id, token) {
+        let config = {
+            headers: {
+                "Authorization": `Bearer ${token}`
+            }
+        }
+        return http.get(`/exercises/${id}`, config)
     }
 
     /**
@@ -50,8 +65,15 @@ export default class DataService {
      * @returns success if the Exercise is successfully added
      *          error otherwise
      */
-    static addExercise(data) {
-        return http.post("/exercises", data, axiosConfig)
+    static addExercise(data, token) {
+        let config = {
+            headers: {
+                'Content-Type': 'application/json;charset=UTF-8',
+                "Access-Control-Allow-Origin": "*",
+                "Authorization": `Bearer ${token}`
+            }
+        }
+        return http.post("/exercises", data, config)
     }
 
     /**
@@ -62,8 +84,15 @@ export default class DataService {
      * @returns success if the Exercise is successfully updated
      *          error otherwise
      */
-    static updateExercise(data) {
-        return http.put("/exercises", data, axiosConfig)
+    static updateExercise(data, token) {
+        let config = {
+            headers: {
+                'Content-Type': 'application/json;charset=UTF-8',
+                "Access-Control-Allow-Origin": "*",
+                "Authorization": `Bearer ${token}`
+            }
+        }
+        return http.put("/exercises", data, config)
     }
 
     /**
@@ -73,8 +102,13 @@ export default class DataService {
      * @returns success if the Exercise is successfully deleted
      *          error otherwise
      */
-    static deleteExercise(id) {
-        return http.delete(`/exercises?id=${id}`)
+    static deleteExercise(id, token) {
+        let config = {
+            headers: {
+                "Authorization": `Bearer ${token}`
+            }
+        }
+        return http.delete(`/exercises?id=${id}`, config)
     }
 
     /**
@@ -84,8 +118,15 @@ export default class DataService {
      * @returns success if the Set is successfully added
      *          error otherwise
      */
-    static addSet(data) {
-        return http.post("/sets", data, axiosConfig)
+    static addSet(data, token) {
+        let config = {
+            headers: {
+                'Content-Type': 'application/json;charset=UTF-8',
+                "Access-Control-Allow-Origin": "*",
+                "Authorization": `Bearer ${token}`
+            }
+        }
+        return http.post("/sets", data, config)
     }
 
     /**
@@ -95,8 +136,15 @@ export default class DataService {
      * @returns success if the workout is successfully added
      *          error otherwise
      */
-    static addWorkout(data) {
-        return http.post("/workouts", data, axiosConfig)
+    static addWorkout(data, token) {
+        let config = {
+            headers: {
+                'Content-Type': 'application/json;charset=UTF-8',
+                "Access-Control-Allow-Origin": "*",
+                "Authorization": `Bearer ${token}`
+            }
+        }
+        return http.post("/workouts", data, config)
     }
 
     /**
@@ -106,8 +154,13 @@ export default class DataService {
      * @returns Object containing an Array with all the sets in the
      *          sets field.
      */
-    static getSetsByExerciseId(eid) {
-        return http.get(`/sets/${eid}`)
+    static getSetsByExerciseId(eid, token) {
+        let config = {
+            headers: {
+                "Authorization": `Bearer ${token}`
+            }
+        }
+        return http.get(`/sets/${eid}`, config)
     }
 
     /**
@@ -116,8 +169,13 @@ export default class DataService {
      * @param {String} id The id of the desired workout.
      * @returns Document containing the data of the Workout.
      */
-    static getWorkoutById(id) {
-        return http.get(`/workouts/${id}`)
+    static getWorkoutById(id, token) {
+        let config = {
+            headers: {
+                "Authorization": `Bearer ${token}`
+            }
+        }
+        return http.get(`/workouts/${id}`, config)
     }
 
     /**
@@ -127,8 +185,13 @@ export default class DataService {
      * @returns success if the workout is successfully deleted
      *          error otherwise
      */
-    static deleteWorkout(id) {
-        return http.delete(`/workouts?id=${id}`)
+    static deleteWorkout(id, token) {
+        let config = {
+            headers: {
+                "Authorization": `Bearer ${token}`
+            }
+        }
+        return http.delete(`/workouts?id=${id}`, config)
     }
 
      /**
@@ -138,8 +201,13 @@ export default class DataService {
      * @returns success if the set is successfully deleted
      *          error otherwise
      */
-    static deleteSet(id) {
-        return http.delete(`/sets?id=${id}`)
+    static deleteSet(id, token) {
+        let config = {
+            headers: {
+                "Authorization": `Bearer ${token}`
+            }
+        }
+        return http.delete(`/sets?id=${id}`, config)
     }
 
     /**
@@ -150,7 +218,14 @@ export default class DataService {
      * @returns success if the Set is successfully updated
      *          error otherwise
      */
-    static updateSet(data) {
-        return http.put("/sets", data, axiosConfig)
+    static updateSet(data, token) {
+        let config = {
+            headers: {
+                'Content-Type': 'application/json;charset=UTF-8',
+                "Access-Control-Allow-Origin": "*",
+                "Authorization": `Bearer ${token}`
+            }
+        }
+        return http.put("/sets", data, config)
     }
 }
