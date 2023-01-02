@@ -59,7 +59,7 @@ const ExercisesList = () => {
     const handleQueryChange = event => {
         setQuery(event.target.value)
         if (event.target.value === '') {
-            retrieveExercises()
+            retrieveExercises(user.token)
         }
         
     }
