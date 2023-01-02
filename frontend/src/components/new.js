@@ -3,6 +3,7 @@ import { useOutletContext } from 'react-router-dom'
 import DataService from '../services/exercise'
 import { v4 as uuidv4 } from 'uuid'
 import NewSet from './new-set'
+import { useAuthContext } from '../hooks/useAuthContext'
 
 /**
  * A container to facilitate the addition of new sets for an Exercise.
@@ -12,6 +13,7 @@ export default function New() {
     const [newSets, setNewSets] = useState([]) // {weight, reps}
     const [weight, setWeight] = useState('')
     const [reps, setReps] = useState('')
+    const { user } = useAuthContext()
     let currIdx = 0
 
     /**
@@ -49,13 +51,13 @@ export default function New() {
      * Add a workout and corresponding sets to the database.
      */
     const onSaveButtonClick = event => {
-        if (!newSets.length) {
-            // don't save if no new sets were added
+        if (!user || !newSets.length) {
+            // don't save if user isn't logged in or if no new sets were added
             return
         }
 
         // Add a workout to the database
-        DataService.addWorkout({})
+        DataService.addWorkout({}, user.token)
             .then(res => {
                 // get the id of the recently created workout
                 const workoutId = res.data.id 
@@ -72,7 +74,7 @@ export default function New() {
                         reps: set.reps
                     }
                     // Add this set to the database
-                    DataService.addSet(data)
+                    DataService.addSet(data, user.token)
                     itemsProcessed++
                     if (itemsProcessed === newSets.length) {
                         // If all the sets have been added, clear.
