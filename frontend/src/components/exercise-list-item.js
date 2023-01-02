@@ -4,6 +4,7 @@ import "bootstrap/dist/css/bootstrap.min.css"
 import DataService from '../services/exercise'
 import EditExercise from './edit-exercise'
 import { Link } from 'react-router-dom'
+import { useAuthContext } from '../hooks/useAuthContext'
 
 /**
  * A Split Button representing a single Exercise in the Exercise List.
@@ -16,6 +17,7 @@ import { Link } from 'react-router-dom'
  *                                      list in exercises-list
  */
 export default function ExerciseListItem({ exercise, updateListFunction }) {
+    const { user } = useAuthContext()
 
     /**
      * Deletes an exercise from the database.
@@ -25,11 +27,15 @@ export default function ExerciseListItem({ exercise, updateListFunction }) {
      * to update the list in exercise-list.
      */
     const onDeleteClick = event => {
+        if (!user) {
+            return
+        }
+
         // http delete request
-        DataService.deleteExercise(exercise._id)
+        DataService.deleteExercise(exercise._id, user.token)
             .then(res => {
                 // update the list
-                updateListFunction()
+                updateListFunction(user.token)
             })
             .catch(e => {
                 console.error(e)
