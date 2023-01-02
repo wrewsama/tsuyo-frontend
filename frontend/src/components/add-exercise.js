@@ -1,7 +1,9 @@
 import React, { useState } from 'react'
 import DataService from '../services/exercise'
 import "bootstrap"
-import "bootstrap/dist/css/bootstrap.min.css" 
+import "bootstrap/dist/css/bootstrap.min.css"
+import { useAuthContext } from '../hooks/useAuthContext'
+
 
 /**
  * Modal that enables the user to add new exercises.
@@ -13,6 +15,8 @@ export default function AddExercise({ updateListFunction }) {
     const [newName, setNewName] = useState('')
     const [newDesc, setNewDesc] = useState('')
     const [submitted, setSubmitted] = useState(false)
+    const [error, setError] = useState(false)
+    const { user } = useAuthContext()
 
     /**
      * Updates the newName state when the name input is changed by the user.
@@ -37,14 +41,19 @@ export default function AddExercise({ updateListFunction }) {
      * state to true.
      */
     const onAddButtonClick = event => {
+        if (!user) {
+            setError(true)
+            return
+        }
+
         const request = {
             name: newName,
             desc: newDesc
         }
         // send the http request to add the exercise to the database
-        DataService.addExercise(request)
+        DataService.addExercise(request, user.token)
             .then(res => {
-                updateListFunction()
+                updateListFunction(user.token)
             })
             .catch(e => {
                 console.error(e)
@@ -95,14 +104,21 @@ export default function AddExercise({ updateListFunction }) {
                         </form>
 
                         <div>
-                            {submitted ? (
+                            {submitted && (
                                 <div className="alert alert-success mt-3" role="alert">
                                     Exercise Added!
                                 </div>
-                            ) : (
-                                <div></div>
                             )}
                         </div>
+
+                        <div>
+                            {error && (
+                                <div className="alert alert-danger mt-3" role="alert">
+                                    Please log in to add exercise!
+                                </div>
+                            )}
+                        </div>
+
                     </div>
                     <div className='modal-footer'>
                         <button type="button"
