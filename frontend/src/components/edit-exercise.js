@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import "bootstrap"
 import "bootstrap/dist/css/bootstrap.min.css"
 import DataService from '../services/exercise'
+import { useAuthContext } from '../hooks/useAuthContext'
 
 /**
  * Modal to facilitate the editing of an Exercise.
@@ -14,6 +15,7 @@ export default function EditExercise({ exercise, updateListFunction }) {
     const [newName, setNewName] = useState(exercise.name)
     const [newDesc, setNewDesc] = useState(exercise.desc)
     const [submitted, setSubmitted] = useState(false)
+    const { user } = useAuthContext()
 
     /**
      * Updates the newName state when the name input is changed by the user.
@@ -45,6 +47,10 @@ export default function EditExercise({ exercise, updateListFunction }) {
      * exercise in the database.
      */
     const onSaveButtonClick = event => {
+        if (!user) {
+            return
+        }
+
         const data = {
             id: exercise._id,
             name: newName,
@@ -52,9 +58,9 @@ export default function EditExercise({ exercise, updateListFunction }) {
         }
 
         // http put request
-        DataService.updateExercise(data)
+        DataService.updateExercise(data, user.token)
             .then(res =>{
-                updateListFunction()
+                updateListFunction(user.token)
             })
             .catch(e => {
                 console.error(e)
