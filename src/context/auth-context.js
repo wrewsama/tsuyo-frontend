@@ -2,6 +2,9 @@ import { createContext, useReducer, useEffect } from "react"
 
 export const AuthContext = createContext()
 
+/**
+ * Updates the user context.
+ */
 export const authReducer = (state, action) => {
     switch (action.type) {
         case 'LOGIN':
@@ -13,11 +16,16 @@ export const authReducer = (state, action) => {
     }
 }
 
+/**
+ * Context used to pass down information regarding user auth.
+ */
 export const AuthContextProvider = ({ children }) => {
     const [state, dispatch] = useReducer(authReducer, {
         user: null
     })
 
+    // automatically log user in if user info is found in local storage
+    // this ensures user stays logged in
     useEffect(() => {
         const user = JSON.parse(localStorage.getItem('user'))
 
@@ -26,8 +34,6 @@ export const AuthContextProvider = ({ children }) => {
         }
     }, [])
     
-    console.log('AuthContext state: ', state)
-
     return (
         <AuthContext.Provider value={{ ...state, dispatch }}>
             {children}
