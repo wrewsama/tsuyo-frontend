@@ -14,6 +14,8 @@ export default class DataService {
     
     /**
      * Gets all the Exercises in the database.
+     * 
+     * @param {String} token The jsonwebtoken to authenticate the request.
      * @returns Object containing an Array with all the exercises in the
      *          exercises field.
      */
@@ -30,6 +32,7 @@ export default class DataService {
      * Gets all the Exercises in the database matching a given query.
      * 
      * @param {String} query The term to match the Exercises to.
+     * @param {String} token The jsonwebtoken to authenticate the request.
      * @returns Object containing an Array with all the exercises in the
      *          exercises field.
      */
@@ -47,6 +50,7 @@ export default class DataService {
      * Gets the Exercise matching a given id.
      * 
      * @param {String} id The id of the desired Exercise.
+     * @param {String} token The jsonwebtoken to authenticate the request.
      * @returns The desired Exercise document
      */
     static findExerciseById(id, token) {
@@ -62,6 +66,7 @@ export default class DataService {
      * Adds an Exercise to the database.
      * 
      * @param {Object} data A json object repesenting the Exercise to be added.
+     * @param {String} token The jsonwebtoken to authenticate the request.
      * @returns success if the Exercise is successfully added
      *          error otherwise
      */
@@ -81,6 +86,7 @@ export default class DataService {
      * 
      * @param {Object} data A json object containing the fields that need
      *                      to be updated.
+     * @param {String} token The jsonwebtoken to authenticate the request.
      * @returns success if the Exercise is successfully updated
      *          error otherwise
      */
@@ -99,6 +105,7 @@ export default class DataService {
      * Deletes an Exercise from the database.
      * 
      * @param {String} id The id of the Exercise to be deleted.
+     * @param {String} token The jsonwebtoken to authenticate the request.
      * @returns success if the Exercise is successfully deleted
      *          error otherwise
      */
@@ -115,6 +122,7 @@ export default class DataService {
      * Adds a Set to the database.
      * 
      * @param {Object} data Json object representing the Set to be added.
+     * @param {String} token The jsonwebtoken to authenticate the request.
      * @returns success if the Set is successfully added
      *          error otherwise
      */
@@ -133,6 +141,7 @@ export default class DataService {
      * Adds a Workout to the database.
      * 
      * @param {Object} data Json object representing the Workout to be added.
+     * @param {String} token The jsonwebtoken to authenticate the request.
      * @returns success if the workout is successfully added
      *          error otherwise
      */
@@ -151,6 +160,7 @@ export default class DataService {
      * Gets all the sets matching the given exercise id.
      * 
      * @param {String} eid The id of the exercise to match to.
+     * @param {String} token The jsonwebtoken to authenticate the request.
      * @returns Object containing an Array with all the sets in the
      *          sets field.
      */
@@ -167,6 +177,7 @@ export default class DataService {
      * Gets the workout matching a given id.
      * 
      * @param {String} id The id of the desired workout.
+     * @param {String} token The jsonwebtoken to authenticate the request.
      * @returns Document containing the data of the Workout.
      */
     static getWorkoutById(id, token) {
@@ -182,6 +193,7 @@ export default class DataService {
      * Deletes a workout from the database.
      * 
      * @param {String} id The id of the workout to be deleted.
+     * @param {String} token The jsonwebtoken to authenticate the request.
      * @returns success if the workout is successfully deleted
      *          error otherwise
      */
@@ -198,6 +210,7 @@ export default class DataService {
      * Deletes a set from the database.
      * 
      * @param {String} id The id of the set to be deleted.
+     * @param {String} token The jsonwebtoken to authenticate the request.
      * @returns success if the set is successfully deleted
      *          error otherwise
      */
@@ -215,6 +228,7 @@ export default class DataService {
      * 
      * @param {Object} data A json object containing the fields that need
      *                      to be updated.
+     * @param {String} token The jsonwebtoken to authenticate the request.
      * @returns success if the Set is successfully updated
      *          error otherwise
      */
