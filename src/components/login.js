@@ -1,11 +1,17 @@
 import React, { useState } from 'react'
 import { useLogin } from '../hooks/useLogin'
 
+/**
+ * The app's log in page.
+ */
 export default function Login() {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const { login, error, isLoading } = useLogin()
     
+    /**
+     * Uses the useLogin hook to log the user in.
+     */
     const handleSubmit = async (e) => {
         e.preventDefault()
 

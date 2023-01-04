@@ -3,10 +3,16 @@ import { Link } from 'react-router-dom'
 import { useLogout } from "../hooks/useLogout";
 import { useAuthContext } from '../hooks/useAuthContext';
 
+/**
+ * The Navbar at the top of the webpage.
+ */
 export default function MainNavbar() {
     const { logout } = useLogout()
     const { user } = useAuthContext()
 
+    /**
+     * Uses the useLogout hook to log the user out.
+     */
     const handleLogout = () => {
         logout()
     }

@@ -14,7 +14,7 @@ import { Line } from "react-chartjs-2"
 import 'chartjs-adapter-date-fns';
 import { useAuthContext } from '../hooks/useAuthContext'
 
-
+// Register chart elements
 Chart.register(
     LineElement,
     TimeScale,
@@ -23,17 +23,26 @@ Chart.register(
     Tooltip,
     Legend
 )
+
+/**
+ * The graph component of the exercise page.
+ */
 export default function Graph() {
     const [listOfWorkoutItems, setListOfWorkoutItems] = useState([])
     const params = useParams()
     const exerciseId = params.id 
     const { user } = useAuthContext()
 
+    // The dates of each workout
     const xValues = listOfWorkoutItems.map(workout => workout[0])
+
+    // The total weight lifted in each workout
     const totalWeights = listOfWorkoutItems.map(workout => {
         const setList = workout[1]
-        return setList.reduce((prev, curr) => prev + curr.weight, 0)
+        return setList.reduce((prev, curr) => prev + curr.weight * curr.reps, 0)
     })
+
+    // The 1RM estimate from that workout
     const oneRepMaxes = listOfWorkoutItems.map(workout => {
         const setList = workout[1]
         return setList.reduce((prev, curr) => {
@@ -112,6 +121,9 @@ export default function Graph() {
             })
     }
 
+    /**
+     * Loads in the workout items when the page is loaded.
+     */
     useEffect(() => {
         if (user) {
             retrieveWorkoutItems(user.token)
