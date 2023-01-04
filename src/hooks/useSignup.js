@@ -1,11 +1,26 @@
 import React, { useState } from "react";
 import { useAuthContext } from "./useAuthContext";
 
+/**
+ * Hook used to sign a new user up.
+ * 
+ * @returns the signup function and the error and isLoading states.
+ */
 export const useSignup = () => {
     const [error, setError] = useState(null)
     const [isLoading, setIsLoading] = useState(null)
     const { dispatch } = useAuthContext()
 
+    /**
+     * Signs a new user up.
+     * 
+     * Sends the signup request to the backend. If successful, save the
+     * jsonwebtoken to localstorage and update the auth context with the
+     * new user.
+     * 
+     * @param {String} email
+     * @param {String} password
+     */
     const signup = async (email, password) => {
         setIsLoading(true)
         setError(null)
