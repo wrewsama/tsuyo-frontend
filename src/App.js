@@ -11,6 +11,9 @@ import Signup from "./components/signup";
 import MainNavbar from "./components/main-navbar";
 import { useAuthContext } from "./hooks/useAuthContext";
 
+/**
+ * The main app component. 
+ */
 const App = () => {
   const{ user } = useAuthContext()
 
