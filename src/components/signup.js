@@ -55,6 +55,11 @@ export default function Signup() {
 
                 <button className="btn btn-primary mt-2 float-end"
                         disabled={isLoading}>
+                    {
+                        isLoading && (
+                            <span class="spinner-border spinner-border-sm"></span>
+                        )
+                    }
                     Sign Up
                 </button>                
             </form>
